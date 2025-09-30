@@ -9,7 +9,7 @@ use N1ebieski\KSEFClient\Support\AbstractValueObject;
 use SensitiveParameter;
 use Stringable;
 
-final readonly class SessionToken extends AbstractValueObject implements ValueAwareInterface, Stringable
+final readonly class AccessToken extends AbstractValueObject implements ValueAwareInterface, Stringable
 {
     public function __construct(
         #[SensitiveParameter]

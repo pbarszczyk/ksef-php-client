@@ -8,14 +8,14 @@ use DOMDocument;
 use N1ebieski\KSEFClient\Requests\AbstractRequest;
 use N1ebieski\KSEFClient\Requests\Online\Session\DTOs\InitSessionToken;
 use N1ebieski\KSEFClient\Requests\Online\Session\ValueObjects\EncryptedToken;
-use N1ebieski\KSEFClient\ValueObjects\ApiToken;
+use N1ebieski\KSEFClient\ValueObjects\KsefToken;
 use SensitiveParameter;
 
 final readonly class InitTokenRequest extends AbstractRequest
 {
     public function __construct(
         #[SensitiveParameter]
-        public ApiToken $apiToken,
+        public KsefToken $apiToken,
         public InitSessionToken $initSessionToken
     ) {
     }

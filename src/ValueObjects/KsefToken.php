@@ -9,7 +9,7 @@ use N1ebieski\KSEFClient\Support\AbstractValueObject;
 use SensitiveParameter;
 use Stringable;
 
-final readonly class ApiToken extends AbstractValueObject implements ValueAwareInterface, Stringable
+final readonly class KsefToken extends AbstractValueObject implements ValueAwareInterface, Stringable
 {
     public function __construct(
         #[SensitiveParameter]

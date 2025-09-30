@@ -9,7 +9,7 @@ use N1ebieski\KSEFClient\Contracts\Resources\ClientResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Common\CommonResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Online\OnlineResourceInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
-use N1ebieski\KSEFClient\HttpClient\ValueObjects\SessionToken;
+use N1ebieski\KSEFClient\HttpClient\ValueObjects\AccessToken;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Common\CommonResource;
 use N1ebieski\KSEFClient\Resources\Online\OnlineResource;
@@ -24,15 +24,15 @@ final readonly class ClientResource extends AbstractResource implements ClientRe
     ) {
     }
 
-    public function getSessionToken(): ?SessionToken
+    public function getSessionToken(): ?AccessToken
     {
         return $this->client->getSessionToken();
     }
 
-    public function withSessionToken(SessionToken | string $sessionToken): self
+    public function withSessionToken(AccessToken | string $sessionToken): self
     {
-        if ($sessionToken instanceof SessionToken === false) {
-            $sessionToken = SessionToken::from($sessionToken);
+        if ($sessionToken instanceof AccessToken === false) {
+            $sessionToken = AccessToken::from($sessionToken);
         }
 
         return new self($this->client->withSessionToken($sessionToken), $this->config, $this->logger);

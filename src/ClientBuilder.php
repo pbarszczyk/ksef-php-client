@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Factories\LoggerFactory;
 use N1ebieski\KSEFClient\HttpClient\DTOs\Config as HttpClientConfig;
 use N1ebieski\KSEFClient\HttpClient\HttpClient;
 use N1ebieski\KSEFClient\HttpClient\ValueObjects\BaseUri;
-use N1ebieski\KSEFClient\HttpClient\ValueObjects\SessionToken;
+use N1ebieski\KSEFClient\HttpClient\ValueObjects\AccessToken;
 use N1ebieski\KSEFClient\Requests\DTOs\SubjectIdentifierBy;
 use N1ebieski\KSEFClient\Requests\DTOs\SubjectIdentifierByCompanyGroup;
 use N1ebieski\KSEFClient\Requests\Online\Session\AuthorisationChallenge\AuthorisationChallengeRequest;
@@ -26,7 +26,7 @@ use N1ebieski\KSEFClient\Resources\ClientResource;
 use N1ebieski\KSEFClient\Validator\Rules\String\MaxBytesRule;
 use N1ebieski\KSEFClient\Validator\Rules\String\MinBytesRule;
 use N1ebieski\KSEFClient\Validator\Validator;
-use N1ebieski\KSEFClient\ValueObjects\ApiToken;
+use N1ebieski\KSEFClient\ValueObjects\KsefToken;
 use N1ebieski\KSEFClient\ValueObjects\ApiUrl;
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
 use N1ebieski\KSEFClient\ValueObjects\EncryptionKey;
@@ -48,9 +48,9 @@ final class ClientBuilder
 
     private ApiUrl $apiUrl;
 
-    private ?ApiToken $apiToken = null;
+    private ?KsefToken $apiToken = null;
 
-    private ?SessionToken $sessionToken = null;
+    private ?AccessToken $sessionToken = null;
 
     private ?CertificatePath $certificatePath = null;
 
@@ -119,10 +119,10 @@ final class ClientBuilder
         return $this;
     }
 
-    public function withApiToken(ApiToken | string $apiToken): self
+    public function withApiToken(KsefToken | string $apiToken): self
     {
-        if ($apiToken instanceof ApiToken === false) {
-            $apiToken = ApiToken::from($apiToken);
+        if ($apiToken instanceof KsefToken === false) {
+            $apiToken = KsefToken::from($apiToken);
         }
 
         $this->certificatePath = null;
@@ -132,10 +132,10 @@ final class ClientBuilder
         return $this;
     }
 
-    public function withSessionToken(SessionToken | string $sessionToken): self
+    public function withSessionToken(AccessToken | string $sessionToken): self
     {
-        if ($sessionToken instanceof SessionToken === false) {
-            $sessionToken = SessionToken::from($sessionToken);
+        if ($sessionToken instanceof AccessToken === false) {
+            $sessionToken = AccessToken::from($sessionToken);
         }
 
         $this->certificatePath = null;
@@ -236,7 +236,7 @@ final class ClientBuilder
 
         $client = new ClientResource($httpClient, $config, $this->logger);
 
-        if ($this->sessionToken instanceof SessionToken) {
+        if ($this->sessionToken instanceof AccessToken) {
             return $client->withSessionToken($this->sessionToken);
         }
 
@@ -253,7 +253,7 @@ final class ClientBuilder
             )->object();
 
             $authorisationSessionResponse = match (true) { //@phpstan-ignore-line
-                $this->apiToken instanceof ApiToken => $client->online()->session()->initToken(
+                $this->apiToken instanceof KsefToken => $client->online()->session()->initToken(
                     new InitTokenRequest(
                         apiToken: $this->apiToken,
                         initSessionToken: new InitSessionToken(
@@ -286,8 +286,8 @@ final class ClientBuilder
 
     private function isAuthorisation(): bool
     {
-        return ! $this->sessionToken instanceof SessionToken && (
-            $this->apiToken instanceof ApiToken || $this->certificatePath instanceof CertificatePath
+        return ! $this->sessionToken instanceof AccessToken && (
+            $this->apiToken instanceof KsefToken || $this->certificatePath instanceof CertificatePath
         );
     }
 }

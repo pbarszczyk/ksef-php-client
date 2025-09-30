@@ -10,7 +10,7 @@ use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Exception\ExceptionHandler;
 use N1ebieski\KSEFClient\HttpClient\DTOs\Config;
 use N1ebieski\KSEFClient\HttpClient\DTOs\Request;
-use N1ebieski\KSEFClient\HttpClient\ValueObjects\SessionToken;
+use N1ebieski\KSEFClient\HttpClient\ValueObjects\AccessToken;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
 
@@ -23,12 +23,12 @@ final readonly class HttpClient implements HttpClientInterface
     ) {
     }
 
-    public function getSessionToken(): ?SessionToken
+    public function getSessionToken(): ?AccessToken
     {
         return $this->config->sessionToken;
     }
 
-    public function withSessionToken(SessionToken $sessionToken): self
+    public function withSessionToken(AccessToken $sessionToken): self
     {
         return new self(
             client: $this->client,
@@ -43,7 +43,7 @@ final readonly class HttpClient implements HttpClientInterface
 
         $request = $request->withUri($request->uri->withBaseUrl($this->config->baseUri)->withoutSlashAtEnd());
 
-        if ($this->config->sessionToken instanceof SessionToken) {
+        if ($this->config->sessionToken instanceof AccessToken) {
             $request = $request->withHeader('SessionToken', $this->config->sessionToken->value);
         }
 

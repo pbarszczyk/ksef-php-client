@@ -6,7 +6,7 @@ namespace N1ebieski\KSEFClient\Factories;
 
 use DateTimeInterface;
 use N1ebieski\KSEFClient\Requests\Online\Session\ValueObjects\EncryptedToken;
-use N1ebieski\KSEFClient\ValueObjects\ApiToken;
+use N1ebieski\KSEFClient\ValueObjects\KsefToken;
 use N1ebieski\KSEFClient\ValueObjects\KSEFPublicKeyPath;
 use RuntimeException;
 use SensitiveParameter;
@@ -15,7 +15,7 @@ final readonly class EncryptedTokenFactory extends AbstractFactory
 {
     public static function make(
         #[SensitiveParameter]
-        ApiToken $apiToken,
+        KsefToken $apiToken,
         #[SensitiveParameter]
         DateTimeInterface $timestamp,
         KSEFPublicKeyPath $ksefPublicKeyPath,
