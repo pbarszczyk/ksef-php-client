@@ -37,6 +37,7 @@ final readonly class Faktura extends AbstractDTO implements XmlSerializableInter
      * @param PodmiotUpowazniony|Optional $podmiotUpowazniony Dane podmiotu upoważnionego, związanego z fakturą
      * @param Fa $fa Na podstawie art. 106a - 106q ustawy. Pola dotyczące wartości sprzedaży i podatku wypełnia się w walucie, w której wystawiono fakturę, z wyjątkiem pól dotyczących podatku przeliczonego zgodnie z przepisami Działu VI w związku z art. 106e ust. 11 ustawy. W przypadku wystawienia faktury korygującej, wypełnia się wszystkie pola wg stanu po korekcie, a pola dotyczące podstaw opodatkowania, podatku oraz należności ogółem wypełnia się poprzez różnicę
      * @param Optional|Stopka $stopka Pozostałe dane na fakturze
+     * @param Optional|Zalacznik $zalacznik Zawiera załącznik do faktury dotyczącej czynności o złożonej liczbie danych w zakresie jednostek miary i ilości (liczby) dostarczanych towarów lub wykonywanych usług lub cen jednostkowych netto [element fakultatywny].
      * @return void
      */
     public function __construct(
@@ -46,7 +47,8 @@ final readonly class Faktura extends AbstractDTO implements XmlSerializableInter
         public Fa $fa,
         Optional | array $podmiot3 = new Optional(),
         public Optional | PodmiotUpowazniony $podmiotUpowazniony = new Optional(),
-        public Optional | Stopka $stopka = new Optional()
+        public Optional | Stopka $stopka = new Optional(),
+        public Optional | Zalacznik $zalacznik = new Optional()
     ) {
         Validator::validate([
             'podmiot3' => $podmiot3
@@ -96,6 +98,12 @@ final readonly class Faktura extends AbstractDTO implements XmlSerializableInter
             $stopka = $dom->importNode($this->stopka->toDom()->documentElement, true);
 
             $faktura->appendChild($stopka);
+        }
+
+        if ($this->zalacznik instanceof Zalacznik) {
+            $zalacznik = $dom->importNode($this->zalacznik->toDom()->documentElement, true);
+
+            $faktura->appendChild($zalacznik);
         }
 
         return $dom;

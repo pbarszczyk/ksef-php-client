@@ -31,7 +31,7 @@ final readonly class EncryptedKeyFactory extends AbstractFactory
         }
 
         /** @var string $encryptedKey */
-        $encryptedKey = base64_encode($encryptedKey); //@phpstan-ignore-line
+        $encryptedKey = base64_encode($encryptedKey);
 
         /** @var string $encryptedIv */
         $encryptedIv = base64_encode($encryptionKey->iv);
