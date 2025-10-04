@@ -31,4 +31,10 @@ final readonly class AccessToken extends AbstractValueObject implements Stringab
     {
         return new self($token, $validUntil);
     }
+
+    public function isEquals(AccessToken $accessToken): bool
+    {
+        return $this->token === $accessToken->token
+            && $this->validUntil->getTimestamp() === $accessToken->validUntil->getTimestamp();
+    }
 }

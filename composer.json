@@ -32,7 +32,8 @@
         "phpstan/phpstan": "^2.1",
         "rector/rector": "^2.0",
         "phpunit/phpunit": "^12.1",
-        "monolog/monolog": "^3.9"
+        "monolog/monolog": "^3.9",
+        "dg/bypass-finals": "^1.9"
     },
     "autoload": {
         "psr-4": {

@@ -32,6 +32,7 @@ trait HasClientMock
         $responseStub->method('getBody')->willReturn($streamStub);
 
         $httpClientStub = $this->createStub(HttpClientInterface::class);
+        $httpClientStub->method('withAccessToken')->willReturnSelf();
         $httpClientStub->method('sendRequest')->willReturn(new Response($responseStub, new ExceptionHandler()));
 
         return new ClientResource($httpClientStub, new Config(
