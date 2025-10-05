@@ -811,12 +811,12 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendFakt
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
 
-$nip = '1111111111';
+$nip = 'NIP_NUMBER';
 
 // From https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1query/post
-$certificateSerialNumber = '01F20A5D352AE590';
+$certificateSerialNumber = $_ENV['CERTIFICATE_SERIAL_NUMBER'];
 $certificate = CertificateFactory::make(
-    CertificatePath::from(Utility::basePath('config/certificates/certificate.p12'), 'password')
+    CertificatePath::from($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE'])
 );
 
 $fixture = new SendFakturaSprzedazyTowaruRequestFixture()
