@@ -774,9 +774,10 @@ $upo = $client->sessions()->invoices()->upo([
 
 ## Testing
 
-The package uses unit tests via [PHPUnit](https://github.com/sebastianbergmann/phpunit). 
+The package uses unit tests via [Pest](https://pestphp.com). 
 
-TestCase is located in ```src/Testing/AbstractTestCase```
+Pest configuration is located in ```tests/Pest```
+TestCase is located in ```tests/AbstractTestCase```
 
 Fake request and responses fixtures for resources are located in ```src/Testing/Fixtures/Requests```
 
@@ -787,7 +788,7 @@ composer install
 ```
 
 ```bash
-vendor/bin/phpunit
+vendor/bin/pest
 ```
 
 ## Roadmap
