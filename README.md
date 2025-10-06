@@ -66,6 +66,11 @@ Main features:
         - [Certificates Retrieve](#certificates-retrieve)
         - [Certificates Revoke](#certificates-revoke)
         - [Certificates Query](#certificates-query)
+    - [Tokens](#tokens)
+        - [Tokens Create](#tokens-create)
+        - [Tokens List](#tokens-list)
+        - [Tokens Status](#tokens-status)
+        - [Tokens Revoke](#tokens-revoke)
     - [Testdata](#testdata)
         - [Person](#person)
             - [Person Create](#person-create)
@@ -645,6 +650,72 @@ use N1ebieski\KSEFClient\Requests\Certificates\Query\QueryRequest;
 $response = $client->certificates()->query(
     new QueryRequest(...)
 )->object();
+```
+</details>
+
+### Tokens
+
+<details>
+    <summary>
+        <h4>Tokens Create</h4>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Tokens\Create\CreateRequest;
+
+$response = $client->tokens()->create(
+    new CreateRequest(...)
+)->object();
+```
+</details>
+
+<details>
+    <summary>
+        <h4>Tokens List</h4>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Tokens\List\ListRequest;
+
+$response = $client->tokens()->list(
+    new ListRequest(...)
+)->object();
+```
+</details>
+
+<details>
+    <summary>
+        <h4>Tokens Status</h4>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens~1%7BreferenceNumber%7D/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Tokens\Status\StatusRequest;
+
+$response = $client->tokens()->list(
+    new StatusRequest(...)
+)->object();
+```
+</details>
+
+<details>
+    <summary>
+        <h4>Tokens Revoke</h4>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens~1%7BreferenceNumber%7D/delete
+
+```php
+use N1ebieski\KSEFClient\Requests\Tokens\Revoke\RevokeRequest;
+
+$response = $client->tokens()->revoke(
+    new RevokeRequest(...)
+)->status();
 ```
 </details>
 

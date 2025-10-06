@@ -8,8 +8,8 @@ use Http\Discovery\Psr17Factory;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
-use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
 use N1ebieski\KSEFClient\DTOs\HttpClient\Request;
+use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
 use N1ebieski\KSEFClient\ValueObjects\AccessToken;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
@@ -48,6 +48,10 @@ final readonly class HttpClient implements HttpClientInterface
         );
 
         foreach ($request->headers as $name => $value) {
+            if ($value === null) {
+                continue;
+            }
+
             $clientRequest = $clientRequest->withHeader($name, $value);
         }
 
