@@ -15,7 +15,7 @@ final readonly class BaseUri extends AbstractValueObject implements ValueAwareIn
 
     public function __construct(Url | string $value)
     {
-        if ($value instanceof Url == false) {
+        if ($value instanceof Url === false) {
             $value = Url::from($value);
         }
 

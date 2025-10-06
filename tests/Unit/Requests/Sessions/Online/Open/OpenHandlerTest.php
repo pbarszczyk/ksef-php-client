@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Open\OpenResp
 /**
  * @return array<string, array{OpenRequestFixture, OpenResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new OpenRequestFixture(),
     ];
@@ -32,7 +32,7 @@ dataset('validResponseProvider', function () {
     /** @var array<string, array{OpenRequestFixture, OpenResponseFixture}> */
     return $combinations;
 });
-test('valid response', function (OpenRequestFixture $requestFixture, OpenResponseFixture $responseFixture) {
+test('valid response', function (OpenRequestFixture $requestFixture, OpenResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = OpenRequest::from($requestFixture->data);
@@ -44,10 +44,10 @@ test('valid response', function (OpenRequestFixture $requestFixture, OpenRespons
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new OpenRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

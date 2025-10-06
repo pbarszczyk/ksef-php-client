@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Factories;
 
-use DateTime;
 use DateTimeInterface;
 use N1ebieski\KSEFClient\ValueObjects\KsefPublicKey;
 use N1ebieski\KSEFClient\ValueObjects\KsefToken;
@@ -44,7 +43,7 @@ final readonly class EncryptedTokenFactory extends AbstractFactory
         }
 
         /** @var string $encryptedToken */
-        $encryptedToken = base64_encode($encryptedToken); //@phpstan-ignore-line
+        $encryptedToken = base64_encode((string) $encryptedToken); //@phpstan-ignore-line
 
         return new EncryptedToken($encryptedToken);
     }

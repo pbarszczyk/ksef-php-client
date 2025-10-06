@@ -61,7 +61,7 @@ final readonly class Request extends AbstractDTO
         if (is_array($this->body)) {
             $body = Arr::filterRecursive($this->body, fn (mixed $value): bool => ! $value instanceof Optional);
 
-            return ! empty($body) ? json_encode($body, JSON_THROW_ON_ERROR) : '';
+            return $body === [] ? '' : json_encode($body, JSON_THROW_ON_ERROR);
         }
 
         return '';

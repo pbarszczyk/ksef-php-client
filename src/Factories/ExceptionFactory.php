@@ -39,7 +39,7 @@ final readonly class ExceptionFactory extends AbstractFactory
             $statusCode === 400 => BadRequestException::class,
             $statusCode === 500 => InternalServerException::class,
             $statusCode === 501 => UnknownSystemException::class,
-            $statusCode === 401 => Utility::value(function () use (&$message) {
+            $statusCode === 401 => Utility::value(function () use (&$message): string {
                 $message = 'Unauthorized';
 
                 return ClientException::class;

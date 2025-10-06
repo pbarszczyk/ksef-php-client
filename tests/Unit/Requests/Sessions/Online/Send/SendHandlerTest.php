@@ -21,7 +21,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendResp
 /**
  * @return array<string, array{AbstractSendRequestFixture, SendResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         (new SendFakturaSprzedazyTowaruRequestFixture())->withName('faktura sprzedaży towaru'),
         (new SendFakturaKorygujacaUniwersalnaRequestFixture())->withName('faktura korygująca uniwersalna'),
@@ -50,7 +50,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (AbstractSendRequestFixture $requestFixture, SendResponseFixture $responseFixture) {
+test('valid response', function (AbstractSendRequestFixture $requestFixture, SendResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = SendRequest::from($requestFixture->data);
@@ -62,10 +62,10 @@ test('valid response', function (AbstractSendRequestFixture $requestFixture, Sen
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new SendFakturaSprzedazyTowaruRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

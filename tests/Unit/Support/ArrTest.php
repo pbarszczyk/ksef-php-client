@@ -5,7 +5,7 @@ declare(strict_types=1);
 use N1ebieski\KSEFClient\Support\Arr;
 use N1ebieski\KSEFClient\Support\Optional;
 
-test('filter recursive', function () {
+test('filter recursive', function (): void {
     $array = [
         'a' => 'b',
         'c' => [

@@ -30,6 +30,7 @@ final readonly class Kol extends AbstractDTO implements DomSerializableInterface
 
         $kol = $dom->createElement('Kol');
         $kol->setAttribute('Typ', (string) $this->typ->value);
+
         $dom->appendChild($kol);
 
         $nKom = $dom->createElement('NKom');

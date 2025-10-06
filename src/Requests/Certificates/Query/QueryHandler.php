@@ -23,8 +23,8 @@ final readonly class QueryHandler extends AbstractHandler
         return $this->client->sendRequest(new Request(
             method: Method::Post,
             uri: Uri::from('certificates/query'),
-            body: $request->toBody(),
-            parameters: $request->toParameters()
+            parameters: $request->toParameters(),
+            body: $request->toBody()
         ));
     }
 }

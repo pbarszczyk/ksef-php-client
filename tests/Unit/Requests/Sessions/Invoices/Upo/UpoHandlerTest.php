@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Invoices\Upo\UpoResp
 /**
  * @return array<string, array{UpoRequestFixture, UpoResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new UpoRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (UpoRequestFixture $requestFixture, UpoResponseFixture $responseFixture) {
+test('valid response', function (UpoRequestFixture $requestFixture, UpoResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = UpoRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (UpoRequestFixture $requestFixture, UpoResponseF
     expect($response)->toBe($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new UpoRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

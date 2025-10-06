@@ -31,7 +31,7 @@ final readonly class ContextIdentifierPeppolIdGroup extends AbstractDTO implemen
         $dom->appendChild($contextIdentifierPeppolIdGroup);
 
         $peppolId = $dom->createElement('PeppolId');
-        $peppolId->appendChild($dom->createTextNode((string) $this->peppolId->value));
+        $peppolId->appendChild($dom->createTextNode((string) $this->peppolId));
 
         $contextIdentifierPeppolIdGroup->appendChild($peppolId);
 

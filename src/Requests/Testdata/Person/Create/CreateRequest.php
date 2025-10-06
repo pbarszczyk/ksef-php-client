@@ -10,7 +10,6 @@ use N1ebieski\KSEFClient\Requests\AbstractRequest;
 use N1ebieski\KSEFClient\Support\Optional;
 use N1ebieski\KSEFClient\ValueObjects\NIP;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Testdata\Person\Create\Pesel;
-use N1ebieski\KSEFClient\ValueObjects\Support\KeyType;
 
 final readonly class CreateRequest extends AbstractRequest implements BodyInterface
 {

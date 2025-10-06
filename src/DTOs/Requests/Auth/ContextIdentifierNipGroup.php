@@ -31,7 +31,7 @@ final readonly class ContextIdentifierNipGroup extends AbstractDTO implements Do
         $dom->appendChild($contextIdentifierNipGroup);
 
         $nip = $dom->createElement('Nip');
-        $nip->appendChild($dom->createTextNode((string) $this->nip->value));
+        $nip->appendChild($dom->createTextNode((string) $this->nip));
 
         $contextIdentifierNipGroup->appendChild($nip);
 

@@ -11,16 +11,14 @@ use N1ebieski\KSEFClient\ValueObjects\RefreshToken;
 /**
  * @return array<int, array<int, string>>
  */
-dataset('resourceProvider', function () {
-    return [
-        ['sessions'],
-        ['invoices'],
-        ['certificates'],
-        ['tokens']
-    ];
-});
+dataset('resourceProvider', fn (): array => [
+    ['sessions'],
+    ['invoices'],
+    ['certificates'],
+    ['tokens']
+]);
 
-test('auto access token refresh', function (string $resource) {
+test('auto access token refresh', function (string $resource): void {
     $responseFixture = (new RefreshResponseFixture())->withValidUntil(new DateTimeImmutable('+15 minutes'));
 
     $accessToken = new AccessToken('access-token', new DateTimeImmutable('-15 minutes'));
@@ -40,7 +38,7 @@ test('auto access token refresh', function (string $resource) {
     expect($newAccessToken->isEquals($responseFixture->getAccessToken()))->toBeTrue();
 })->with('resourceProvider');
 
-test('throw exception if access token is expired', function (string $resource) {
+test('throw exception if access token is expired', function (string $resource): void {
     $accessToken = new AccessToken('access-token', new DateTimeImmutable('-15 minutes'));
 
     $clientStub = getClientStub(new RefreshResponseFixture())

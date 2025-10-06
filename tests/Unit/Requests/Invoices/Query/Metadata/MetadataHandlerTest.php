@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Invoices\Query\Metadata\Metad
 /**
  * @return array<string, array{MetadataRequestFixture, MetadataResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new MetadataRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (MetadataRequestFixture $requestFixture, MetadataResponseFixture $responseFixture) {
+test('valid response', function (MetadataRequestFixture $requestFixture, MetadataResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = MetadataRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (MetadataRequestFixture $requestFixture, Metadat
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new MetadataRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

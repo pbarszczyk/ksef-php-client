@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Close\CloseRe
 /**
  * @return array<string, array{CloseRequestFixture, CloseResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new CloseRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (CloseRequestFixture $requestFixture, CloseResponseFixture $responseFixture) {
+test('valid response', function (CloseRequestFixture $requestFixture, CloseResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = CloseRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (CloseRequestFixture $requestFixture, CloseRespo
     expect($response)->toEqual($responseFixture->statusCode);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new CloseRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

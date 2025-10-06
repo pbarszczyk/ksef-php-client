@@ -18,7 +18,7 @@ final readonly class Pesel extends AbstractValueObject implements FromInterface,
     public function __construct(string $value)
     {
         Validator::validate($value, [
-            new RegexRule('/^[0-9]{11}$/'),
+            new RegexRule('/^\d{11}$/'),
         ]);
 
         $this->value = $value;

@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 /**
  * @return array<string, array{KsefTokenRequestFixture, KsefTokenResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new KsefTokenRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (KsefTokenRequestFixture $requestFixture, KsefTokenResponseFixture $responseFixture) {
+test('valid response', function (KsefTokenRequestFixture $requestFixture, KsefTokenResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = KsefTokenRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (KsefTokenRequestFixture $requestFixture, KsefTo
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new KsefTokenRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Invoices\KsefUpo\Kse
 /**
  * @return array<string, array{KsefUpoRequestFixture, KsefUpoResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new KsefUpoRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (KsefUpoRequestFixture $requestFixture, KsefUpoResponseFixture $responseFixture) {
+test('valid response', function (KsefUpoRequestFixture $requestFixture, KsefUpoResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = KsefUpoRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (KsefUpoRequestFixture $requestFixture, KsefUpoR
     expect($response)->toBe($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new KsefUpoRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

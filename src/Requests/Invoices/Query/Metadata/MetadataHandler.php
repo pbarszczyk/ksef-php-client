@@ -23,8 +23,8 @@ final readonly class MetadataHandler extends AbstractHandler
         return $this->client->sendRequest(new Request(
             method: Method::Post,
             uri: Uri::from('invoices/query/metadata'),
-            body: $request->toBody(),
-            parameters: $request->toParameters()
+            parameters: $request->toParameters(),
+            body: $request->toBody()
         ));
     }
 }

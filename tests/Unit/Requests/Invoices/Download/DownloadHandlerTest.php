@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Invoices\Download\DownloadRes
 /**
  * @return array<string, array{DownloadRequestFixture, DownloadResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new DownloadRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (DownloadRequestFixture $requestFixture, DownloadResponseFixture $responseFixture) {
+test('valid response', function (DownloadRequestFixture $requestFixture, DownloadResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = DownloadRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (DownloadRequestFixture $requestFixture, Downloa
     expect($response)->toBe($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new DownloadRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

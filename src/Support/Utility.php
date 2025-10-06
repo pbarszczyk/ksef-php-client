@@ -32,10 +32,8 @@ final class Utility
 
     /**
      * Get the path to the base of the install.
-     *
-     * @param  string  $path
      */
-    public static function basePath($path = ''): string
+    public static function basePath(string $path = ''): string
     {
         return Utility::normalizePath(__DIR__ . '/../../' . $path);
     }
@@ -59,7 +57,7 @@ final class Utility
                 return dirname($a); //@phpstan-ignore-line
             }
 
-            return preg_replace("/\/+/", "/", "$a/$b"); //@phpstan-ignore-line
+            return preg_replace("/\/+/", "/", "{$a}/{$b}"); //@phpstan-ignore-line
         });
     }
 

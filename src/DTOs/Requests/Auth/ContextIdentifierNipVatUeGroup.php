@@ -31,7 +31,7 @@ final readonly class ContextIdentifierNipVatUeGroup extends AbstractDTO implemen
         $dom->appendChild($contextIdentifierNipVatUeGroup);
 
         $nipVatUe = $dom->createElement('NipVatUe');
-        $nipVatUe->appendChild($dom->createTextNode((string) $this->nipVatUe->value));
+        $nipVatUe->appendChild($dom->createTextNode((string) $this->nipVatUe));
 
         $contextIdentifierNipVatUeGroup->appendChild($nipVatUe);
 

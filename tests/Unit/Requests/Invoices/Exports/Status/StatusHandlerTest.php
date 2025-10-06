@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Invoices\Exports\Status\Statu
 /**
  * @return array<string, array{StatusRequestFixture, StatusResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new StatusRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (StatusRequestFixture $requestFixture, StatusResponseFixture $responseFixture) {
+test('valid response', function (StatusRequestFixture $requestFixture, StatusResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = StatusRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (StatusRequestFixture $requestFixture, StatusRes
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new StatusRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

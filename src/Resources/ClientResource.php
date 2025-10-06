@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Resources;
 
+use RuntimeException;
 use DateTimeImmutable;
 use DateTimeInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
@@ -95,7 +96,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
                 return;
             }
 
-            throw new \RuntimeException('Access token and refresh token are expired.');
+            throw new RuntimeException('Access token and refresh token are expired.');
         }
     }
 

@@ -7,13 +7,11 @@ namespace N1ebieski\KSEFClient\Resources\Invoices\Exports;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Invoices\Exports\ExportsResourceInterface;
-use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Init\InitHandler;
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Init\InitRequest;
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Status\StatusHandler;
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Status\StatusRequest;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
-use Psr\Log\LoggerInterface;
 
 final class ExportsResource extends AbstractResource implements ExportsResourceInterface
 {

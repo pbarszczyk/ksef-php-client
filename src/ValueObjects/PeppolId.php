@@ -19,7 +19,7 @@ final readonly class PeppolId extends AbstractValueObject implements FromInterfa
     {
         Validator::validate($value, [
             // @see https://ksef-test.mf.gov.pl/docs/v2/schemas/authv2.xsd
-            new RegexRule('/^P[A-Z]{2}[0-9]{6}$/'),
+            new RegexRule('/^P[A-Z]{2}\d{6}$/'),
         ]);
 
         $this->value = $value;

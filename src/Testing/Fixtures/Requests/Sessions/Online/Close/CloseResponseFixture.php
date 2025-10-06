@@ -10,8 +10,5 @@ final class CloseResponseFixture extends AbstractResponseFixture
 {
     public int $statusCode = 204;
 
-    /**
-     * @var string
-     */
     public string $data = "";
 }

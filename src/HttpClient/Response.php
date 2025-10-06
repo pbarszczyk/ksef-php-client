@@ -33,7 +33,7 @@ final readonly class Response implements ResponseInterface
             return;
         }
 
-        $exceptionResponse = ! empty($this->contents) ? $this->object() : null;
+        $exceptionResponse = $this->contents === '' ? null : $this->object();
 
         $this->exceptionHandler->handle(
             //@phpstan-ignore-next-line

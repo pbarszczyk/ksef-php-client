@@ -12,7 +12,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Tokens\Create\CreateResponseF
 /**
  * @return array<string, array{CreateRequestFixture, CreateResponseFixture}>
  */
-dataset('validResponseProvider', function () {
+dataset('validResponseProvider', function (): array {
     $requests = [
         new CreateRequestFixture(),
     ];
@@ -33,7 +33,7 @@ dataset('validResponseProvider', function () {
     return $combinations;
 });
 
-test('valid response', function (CreateRequestFixture $requestFixture, CreateResponseFixture $responseFixture) {
+test('valid response', function (CreateRequestFixture $requestFixture, CreateResponseFixture $responseFixture): void {
     $clientStub = getClientStub($responseFixture);
 
     $request = CreateRequest::from($requestFixture->data);
@@ -45,10 +45,10 @@ test('valid response', function (CreateRequestFixture $requestFixture, CreateRes
     expect($response)->toBeFixture($responseFixture->data);
 })->with('validResponseProvider');
 
-test('invalid response', function () {
+test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
-    expect(function () use ($responseFixture) {
+    expect(function () use ($responseFixture): void {
         $requestFixture = new CreateRequestFixture();
 
         $clientStub = getClientStub($responseFixture);

@@ -9,13 +9,11 @@ use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Invoices\Exports\ExportsResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Invoices\InvoicesResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Invoices\Query\QueryResourceInterface;
-use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Invoices\Download\DownloadHandler;
 use N1ebieski\KSEFClient\Requests\Invoices\Download\DownloadRequest;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Invoices\Exports\ExportsResource;
 use N1ebieski\KSEFClient\Resources\Invoices\Query\QueryResource;
-use Psr\Log\LoggerInterface;
 
 final class InvoicesResource extends AbstractResource implements InvoicesResourceInterface
 {

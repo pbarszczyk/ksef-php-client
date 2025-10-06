@@ -31,7 +31,7 @@ final readonly class ContextIdentifierInternalIdGroup extends AbstractDTO implem
         $dom->appendChild($contextIdentifierInternalIdGroup);
 
         $internalId = $dom->createElement('InternalId');
-        $internalId->appendChild($dom->createTextNode((string) $this->internalId->value));
+        $internalId->appendChild($dom->createTextNode((string) $this->internalId));
 
         $contextIdentifierInternalIdGroup->appendChild($internalId);
 

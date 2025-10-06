@@ -12,9 +12,9 @@ use SensitiveParameter;
 
 final readonly class EncryptionKey extends AbstractValueObject
 {
-    public readonly string $key;
+    public string $key;
 
-    public readonly string $iv;
+    public string $iv;
 
     public function __construct(
         #[SensitiveParameter]
