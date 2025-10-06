@@ -50,7 +50,7 @@ Main features:
             - [Close](#close)
             - [Invoices Send](#invoices-send)
         - [Sessions Status](#sessions-status)
-    - [Invoices]
+    - [Invoices](#invoices)
         - [Invoices Download](#invoices-download)
         - [Query](#query)
             - [Query Metadata](#query-metadata)
