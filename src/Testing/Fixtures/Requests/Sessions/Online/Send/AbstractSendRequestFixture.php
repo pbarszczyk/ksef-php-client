@@ -7,6 +7,9 @@ namespace N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send;
 use DateTimeImmutable;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\AbstractRequestFixture;
 
+/**
+ * @property array<string, mixed> $data
+ */
 abstract class AbstractSendRequestFixture extends AbstractRequestFixture
 {
     public function getFaktura(): array

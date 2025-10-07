@@ -55,4 +55,4 @@ test('invalid response', function (): void {
 
         $clientStub->auth()->ksefToken($requestFixture->data);
     })->toBeExceptionFixture($responseFixture->data);
-})->only();
+});

@@ -6,7 +6,6 @@ namespace N1ebieski\KSEFClient\Testing\Fixtures;
 
 /**
  * @property string|array<string, mixed> $data
- *
  */
 abstract class AbstractFixture
 {
