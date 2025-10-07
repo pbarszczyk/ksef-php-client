@@ -14,7 +14,7 @@ Main features:
 - Automatic access token refresh
 - CSR (Certificate Signing Request) handling
 - KSeF exception handling
-- QR code generation
+- QR codes generation
 
 |  KSEF Version  | Branch Version | Release Version |
 |:--------------:|:--------------:|:---------------:|
