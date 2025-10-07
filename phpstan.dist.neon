@@ -10,7 +10,6 @@ parameters:
 		- N1ebieski\KSEFClient\Testing\Fixtures\AbstractFixture
 		- N1ebieski\KSEFClient\Testing\Fixtures\Requests\AbstractResponseFixture
 		- N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\AbstractSendRequestFixture
-
 	excludePaths:
 		- ./src/Overrides/Rector/Php74/Rector/Closure/ClosureToArrowFunctionRector.php
 		- ./src/Testing/Fixtures/Requests

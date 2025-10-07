@@ -48,55 +48,8 @@ uses(AbstractTestCase::class)->in('Unit');
 /**
 * @param array<string, mixed> $data
 */
-expect()->extend('toBeFixture', $toFixture = function (array $data, ?object $object = null) use (&$toFixture): void {
-    if ($object === null) {
-        $object = $this->value; //@phpstan-ignore-line
-    }
-
-    foreach ($data as $key => $value) {
-        expect($object)->toHaveProperty($key);
-
-        if (is_array($value) && is_array($object->{$key}) && isset($object->{$key}[0]) && is_object($object->{$key}[0])) {
-            foreach ($object->{$key} as $itemKey => $itemValue) {
-                if (is_string($value[$itemKey])) {
-                    $value[$itemKey] = ['value' => $value[$itemKey]];
-                }
-
-                /**
-                 * @var array<string, array<string, mixed>> $value
-                 * @var string $itemKey
-                 * @var object $itemValue
-                 */
-                $toFixture($value[$itemKey], $itemValue);
-            }
-
-            continue;
-        }
-
-        if (is_array($value) && is_object($object->{$key})) {
-            /** @var array<string, mixed> $value */
-            $toFixture($value, $object->{$key});
-
-            continue;
-        }
-
-        $expected = match (true) {
-            //@phpstan-ignore-next-line
-            $object->{$key} instanceof DateTimeInterface => new DateTimeImmutable($value),
-            //@phpstan-ignore-next-line
-            $object->{$key} instanceof ValueAwareInterface && $object->{$key}->value instanceof DateTimeInterface => new DateTimeImmutable($value),
-            default => $value,
-        };
-
-        $actual = match (true) {
-            $object->{$key} instanceof DateTimeInterface => $object->{$key},
-            $object->{$key} instanceof ValueAwareInterface => $object->{$key}->value,
-            default => $object->{$key},
-        };
-
-        expect($actual)->toEqual($expected);
-    }
-});
+//@phpstan-ignore-next-line
+expect()->extend('toBeFixture', fn (array $data) => toBeFixture($data, $this->value));
 
 expect()->extend('toBeExceptionFixture', function (array $data): void {
     /** @var array{exception: array{exceptionCode: string, exceptionDescription: string, exceptionDetailList: array<array{exceptionCode: string, exceptionDescription: string}>}} $data */
@@ -120,6 +73,56 @@ expect()->extend('toBeExceptionFixture', function (array $data): void {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+/**
+ * @param array<string, mixed> $data
+ */
+function toBeFixture(array $data, ?object $object = null): void
+{
+    foreach ($data as $key => $value) {
+        expect($object)->toHaveProperty($key);
+
+        if (is_array($value) && is_array($object->{$key}) && isset($object->{$key}[0]) && is_object($object->{$key}[0])) {
+            foreach ($object->{$key} as $itemKey => $itemValue) {
+                if (is_string($value[$itemKey])) {
+                    $value[$itemKey] = ['value' => $value[$itemKey]];
+                }
+
+                /**
+                 * @var array<string, array<string, mixed>> $value
+                 * @var string $itemKey
+                 * @var object $itemValue
+                 */
+                toBeFixture($value[$itemKey], $itemValue);
+            }
+
+            continue;
+        }
+
+        if (is_array($value) && is_object($object->{$key})) {
+            /** @var array<string, mixed> $value */
+            toBeFixture($value, $object->{$key});
+
+            continue;
+        }
+
+        $expected = match (true) {
+            //@phpstan-ignore-next-line
+            $object->{$key} instanceof DateTimeInterface => new DateTimeImmutable($value),
+            //@phpstan-ignore-next-line
+            $object->{$key} instanceof ValueAwareInterface && $object->{$key}->value instanceof DateTimeInterface => new DateTimeImmutable($value),
+            default => $value,
+        };
+
+        $actual = match (true) {
+            $object->{$key} instanceof DateTimeInterface => $object->{$key},
+            $object->{$key} instanceof ValueAwareInterface => $object->{$key}->value,
+            default => $object->{$key},
+        };
+
+        expect($actual)->toEqual($expected);
+    }
+}
 
 function getClientStub(AbstractResponseFixture $response): ClientResourceInterface
 {
