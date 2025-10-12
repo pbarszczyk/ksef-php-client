@@ -942,8 +942,8 @@ $fakturaFixture = (new FakturaSprzedazyTowaruFixture())->withRandomInvoiceNumber
 
 $fixture = (new SendRequestFixture())->withFakturaFixture($fakturaFixture);
 
-// For sending invoice as DTO use SendRequest DTO or array
-// For sending invoice as XML use SendXmlRequest DTO
+// For sending invoice as DTO use SendRequest or array
+// For sending invoice as XML use SendXmlRequest
 $sendResponse = $client->sessions()->online()->send([
     ...$fixture->data,
     'referenceNumber' => $openResponse->referenceNumber,
@@ -1029,9 +1029,9 @@ $faktury = array_map(
     range(1, 100)
 );
 
-// For sending invoices as DTOs use OpenAndSendRequest DTO or array
-// For sending invoices as XMLs use OpenAndSendXmlRequest DTO
-// For sending invoices as ZIP use OpenAndSendZipRequest DTO
+// For sending invoices as DTOs use OpenAndSendRequest or array
+// For sending invoices as XMLs use OpenAndSendXmlRequest
+// For sending invoices as ZIP use OpenAndSendZipRequest
 $openResponse = $client->sessions()->batch()->openAndSend([
     'formCode' => 'FA (3)',
     'faktury' => $faktury
