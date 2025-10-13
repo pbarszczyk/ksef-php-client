@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
+use function N1ebieski\KSEFClient\Tests\getClientStub;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Auth\Token\Refresh\RefreshResponseFixture;
 use N1ebieski\KSEFClient\ValueObjects\AccessToken;
-use N1ebieski\KSEFClient\ValueObjects\RefreshToken;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
+use N1ebieski\KSEFClient\ValueObjects\RefreshToken;
 
 /**
  * @return array<int, array<int, string>>
  */
 dataset('resourceProvider', fn (): array => [
+    ['auth'],
     ['sessions'],
     ['invoices'],
     ['certificates'],
