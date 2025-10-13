@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Auth\Sessions\RevokeCurrent\RevokeCurrentResponseFixture;
-
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
+
+use function N1ebieski\KSEFClient\Tests\getClientStub;
 
 /**
  * @return array<string, array{RevokeCurrentResponseFixture}>
