@@ -1100,6 +1100,7 @@ use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
+use N1ebieski\KSEFClient\ValueObjects\Requests\KsefNumber;
 
 $encryptionKey = EncryptionKeyFactory::makeRandom();
 
@@ -1166,13 +1167,16 @@ $generateQRCodesHandler = new GenerateQRCodesHandler(
     convertEcdsaDerToRawHandler: new ConvertEcdsaDerToRawHandler()
 );
 
+$ksefNumber = KsefNumber::from($statusResponse->ksefNumber);
+
 /** @var QRCodes $qrCodes */
-$qrCodes = $generateQRCodesHandler->handle(GenerateQRCodesAction::from([
-    'nip' => $faktura->podmiot1->daneIdentyfikacyjne->nip,
-    'invoiceCreatedAt' => $faktura->fa->p_1->value,
-    'document' => $faktura->toXml(),
-    'ksefNumber' => $statusResponse->ksefNumber
-]));
+$qrCodes = $generateQRCodesHandler->handle(new GenerateQRCodesAction(
+    mode: Mode::Test,
+    nip: $faktura->podmiot1->daneIdentyfikacyjne->nip,
+    invoiceCreatedAt: $faktura->fa->p_1->value,
+    document: $faktura->toXml(),
+    ksefNumber: $ksefNumber
+));
 
 // Invoice link
 file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1);
@@ -1262,16 +1266,20 @@ use N1ebieski\KSEFClient\Actions\ConvertEcdsaDerToRaw\ConvertEcdsaDerToRawHandle
 use N1ebieski\KSEFClient\Actions\GenerateQRCodes\GenerateQRCodesAction;
 use N1ebieski\KSEFClient\Actions\GenerateQRCodes\GenerateQRCodesHandler;
 use N1ebieski\KSEFClient\DTOs\QRCodes;
+use N1ebieski\KSEFClient\DTOs\Requests\Auth\ContextIdentifierGroup;
 use N1ebieski\KSEFClient\DTOs\Requests\Sessions\Faktura;
 use N1ebieski\KSEFClient\Factories\CertificateFactory;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
+use N1ebieski\KSEFClient\ValueObjects\CertificateSerialNumber;
+use N1ebieski\KSEFClient\ValueObjects\Mode;
+use N1ebieski\KSEFClient\ValueObjects\NIP;
 
 $nip = 'NIP_NUMBER';
 
 // From https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1query/post
-$certificateSerialNumber = $_ENV['CERTIFICATE_SERIAL_NUMBER'];
+$certificateSerialNumber = CertificateSerialNumber::from($_ENV['CERTIFICATE_SERIAL_NUMBER']);
 // Remember: this certificate must be "Offline" type, not "Authentication"
 $certificate = CertificateFactory::make(
     CertificatePath::from($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE'])
@@ -1291,19 +1299,18 @@ $generateQRCodesHandler = new GenerateQRCodesHandler(
     convertEcdsaDerToRawHandler: new ConvertEcdsaDerToRawHandler()
 );
 
+$contextIdentifierGroup = ContextIdentifierGroup::fromIdentifier(NIP::from($nip));
+
 /** @var QRCodes $qrCodes */
-$qrCodes = $generateQRCodesHandler->handle(GenerateQRCodesAction::from([
-    'nip' => $faktura->podmiot1->daneIdentyfikacyjne->nip,
-    'invoiceCreatedAt' => $faktura->fa->p_1->value,
-    'document' => $faktura->toXml(),
-    'certificate' => $certificate,
-    'certificateSerialNumber' => $certificateSerialNumber,
-    'contextIdentifierGroup' => [
-        'identifierGroup' => [
-            'nip' => $nip
-        ]
-    ]
-]));
+$qrCodes = $generateQRCodesHandler->handle(new GenerateQRCodesAction(
+    mode: Mode::Test,
+    nip: $faktura->podmiot1->daneIdentyfikacyjne->nip,
+    invoiceCreatedAt: $faktura->fa->p_1->value,
+    document: $faktura->toXml(),
+    certificate: $certificate,
+    certificateSerialNumber: $certificateSerialNumber,
+    contextIdentifierGroup: $contextIdentifierGroup
+));
 
 // Invoice link
 file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1);
