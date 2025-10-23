@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaAbstractFixture;
+use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\AbstractFakturaFixture;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
 use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
@@ -28,7 +28,7 @@ use function N1ebieski\KSEFClient\Tests\getResponseStub;
 dataset('validResponseProvider', function (): array {
     $requests = [
         (new OpenAndSendRequestFixture())->withFakturaFixtures(array_map(
-            fn (): FakturaAbstractFixture => (new FakturaSprzedazyTowaruFixture())
+            fn (): AbstractFakturaFixture => (new FakturaSprzedazyTowaruFixture())
                 ->withTodayDate()
                 ->withRandomInvoiceNumber(),
             range(1, 3)

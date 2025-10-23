@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Support;
 
-use Symfony\Component\Uid\Uuid;
-
 final class Str
 {
     public static function base64URLEncode(string $value): string

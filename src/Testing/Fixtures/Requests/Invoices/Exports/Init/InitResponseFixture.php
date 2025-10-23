@@ -14,6 +14,6 @@ final class InitResponseFixture extends AbstractResponseFixture
      * @var array<string, mixed>
      */
     public array $data = [
-        'operationReferenceNumber' => 'string'
+        'referenceNumber' => 'string'
     ];
 }

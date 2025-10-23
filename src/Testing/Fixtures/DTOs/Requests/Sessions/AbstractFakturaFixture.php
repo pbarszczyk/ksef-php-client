@@ -10,7 +10,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\AbstractFixture as BaseAbstractFixture
 /**
  * @property array<string, mixed> $data
  */
-abstract class FakturaAbstractFixture extends BaseAbstractFixture
+abstract class AbstractFakturaFixture extends BaseAbstractFixture
 {
     public function withTodayDate(): self
     {
