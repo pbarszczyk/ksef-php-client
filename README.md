@@ -43,6 +43,9 @@ Main features:
             - [Auth Session List](#auth-sessions-list)
             - [Auth Session Revoke Current](#auth-sessions-revoke-current)
             - [Auth Session Revoke](#auth-sessions-revoke)
+    - [Limits](#limits)
+        - [Limits Context](#limits-context)
+        - [Limits Subject](#limits-subject)
     - [Security](#security)
         - [Security Public Key Certificates](#security-public-key-certificates)
     - [Sessions](#sessions)
@@ -83,6 +86,16 @@ Main features:
         - [Testdata Person](#testdata-person)
             - [Testdata Person Create](#testdata-person-create)
             - [Testdata Person Remove](#testdata-person-remove)
+        - [Testdata Limits](#testdata-limits)
+            - [Testdata Limits Context](#testdata-limits-context)
+                - [Testdata Limits Context Session](#testdata-limits-context-session)
+                    - [Testdata Limits Context Session Limits](#testdata-limits-context-session-limits)
+                    - [Testdata Limits Context Session Reset](#testdata-limits-context-session-reset)
+            - [Testdata Limits Subject](#testdata-limits-subject)
+                - [Testdata Limits Subject Certificate](#testdata-limits-subject-certificate)
+                    - [Testdata Limits Subject Certificate Limits](#testdata-limits-subject-certificate-limits)
+                    - [Testdata Limits Subject Certificate Reset](#testdata-limits-subject-certificate-reset)            
+
 - [Examples](#examples)
     - [Integration with a frontend application using certificate-based authentication](#integration-with-a-frontend-application-using-certificate-based-authentication)
     - [Generate a KSEF certificate and convert to .p12 file](#generate-a-ksef-certificate-and-convert-to-p12-file)
@@ -386,6 +399,40 @@ use N1ebieski\KSEFClient\Requests\Auth\Sessions\Revoke\RevokeRequest;
 $response = $client->auth()->sessions()->revoke(
     new RevokeRequest(...)
 )->status();
+```
+</details>
+
+### Limits
+
+<details>
+    <summary>
+        <h5>Limits Context</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1context/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Limits\Context\ContextRequest;
+
+$response = $client->limits()->context(
+    new ContextRequest(...)
+)->object();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Limits Subject</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1subject/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Limits\Subject\SubjectRequest;
+
+$response = $client->limits()->subject(
+    new SubjectRequest(...)
+)->object();
 ```
 </details>
 
@@ -865,6 +912,80 @@ use N1ebieski\KSEFClient\Requests\Testdata\Person\Remove\RemoveRequest;
 
 $response = $client->testdata()->person()->remove(
     new RemoveRequest(...)
+)->status();
+```
+</details>
+
+#### Testdata Limits
+
+##### Testdata Limits Context
+
+###### Testdata Limits Context Session
+
+<details>
+    <summary>
+        <h5>Testdata Limits Context Session Limits</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Limits\LimitsRequest;
+
+$response = $client->testdata()->limits()->context()->session()->limits(
+    new LimitsRequest(...)
+)->status();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Testdata Limits Context Session Reset</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/delete
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Reset\ResetRequest;
+
+$response = $client->testdata()->limits()->context()->session()->reset(
+    new ResetRequest(...)
+)->status();
+```
+</details>
+
+##### Testdata Limits Subject
+
+###### Testdata Limits Subject Certificate
+
+<details>
+    <summary>
+        <h5>Testdata Limits Subject Certificate Limits</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Limits\LimitsRequest;
+
+$response = $client->testdata()->limits()->subject()->certificate()->limits(
+    new LimitsRequest(...)
+)->status();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Testdata Limits Subject Certificate Reset</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/delete
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Reset\ResetRequest;
+
+$response = $client->testdata()->limits()->subject()->certificate()->reset(
+    new ResetRequest(...)
 )->status();
 ```
 </details>
