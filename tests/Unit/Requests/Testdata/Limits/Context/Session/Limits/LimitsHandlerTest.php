@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
 use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Limits\LimitsRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Testdata\Limits\Context\Session\Limits\LimitsRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Testdata\Limits\Context\Session\Limits\LimitsResponseFixture;
-
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
 /** @var AbstractTestCase $this */

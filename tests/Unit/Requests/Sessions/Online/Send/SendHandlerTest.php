@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
 use N1ebieski\KSEFClient\Requests\Sessions\Online\Send\SendRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaDaneNabywcyFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaUniwersalnaFixture;
@@ -16,7 +15,6 @@ use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaZZalaczn
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendResponseFixture;
-
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
 /** @var AbstractTestCase $this */

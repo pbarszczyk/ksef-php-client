@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Auth\Sessions\RevokeCurrent\RevokeCurrentResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
-
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
 /** @var AbstractTestCase $this */

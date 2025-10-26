@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
 use N1ebieski\KSEFClient\Requests\Tokens\List\ListRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Tokens\List\ListRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Tokens\List\ListResponseFixture;
-
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
 /** @var AbstractTestCase $this */

@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Init\InitRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Invoices\Exports\Init\InitRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Invoices\Exports\Init\InitResponseFixture;
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
-
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\EncryptedKey;
 
 /** @var AbstractTestCase $this */

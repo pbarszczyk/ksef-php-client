@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use function N1ebieski\KSEFClient\Tests\createClientStub;
-use function N1ebieski\KSEFClient\Tests\createHttpClientStub;
-use function N1ebieski\KSEFClient\Tests\createResponseStub;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
 use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
@@ -18,7 +15,6 @@ use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\Op
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\OpenAndSendResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\SendResponseFixture;
 use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
-
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\BaseUri;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\EncryptedKey;

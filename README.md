@@ -1399,11 +1399,9 @@ var_dump($statusResponse);
 
 ## Testing
 
-The package uses unit tests via [Pest](https://pestphp.com). 
+The package uses unit and feature tests via [Pest](https://pestphp.com). 
 
 Pest configuration is located in ```tests/Pest```
-
-TestCase is located in ```tests/AbstractTestCase```
 
 Fake request and responses fixtures for resources are located in ```src/Testing/Fixtures/Requests```
 
@@ -1414,7 +1412,7 @@ composer install
 ```
 
 ```bash
-vendor/bin/pest
+vendor/bin/pest --parallel
 ```
 
 ## Roadmap
