@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use function N1ebieski\KSEFClient\Tests\getClientStub;
 use N1ebieski\KSEFClient\Requests\Sessions\Online\Send\SendRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaDaneNabywcyFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaUniwersalnaFixture;
@@ -14,9 +15,8 @@ use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaZaliczko
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaZZalacznikiemFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
-use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendResponseFixture;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
+use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendResponseFixture;
 
 /**
  * @return array<string, array{SendRequestFixture, SendResponseFixture}>
@@ -60,7 +60,7 @@ test('valid response', function (SendRequestFixture $requestFixture, SendRespons
     $response = $clientStub->sessions()->online()->send($requestFixture->data)->object();
 
     expect($response)->toBeFixture($responseFixture->data);
-})->with('validResponseProvider')->only();
+})->with('validResponseProvider');
 
 test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();

@@ -14,4 +14,12 @@
             <directory>src</directory>
         </include>
     </source>
+    <php>
+        <env name="NIP" value="6669666921" />
+        <env name="PESEL" value="90051701234" />
+        <env name="CERTIFICATE_PATH" value="config/certificates/testing/certificate.p12" />
+        <env name="CERTIFICATE_PASSPHRASE" value="password" />
+        <env name="KSEF_AUTH_CERTIFICATE_PATH" value="config/certificates/testing/ksef-auth-certificate.p12" />
+        <env name="KSEF_AUTH_CERTIFICATE_PASSPHRASE" value="password" />
+    </php>
 </phpunit>

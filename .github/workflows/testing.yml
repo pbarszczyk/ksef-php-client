@@ -40,6 +40,15 @@ jobs:
           extensions: json, dom, curl, libxml, mbstring
           coverage: none
 
+      - name: Setup Certificate
+        run: |
+          mkdir -p ./scripts
+          mkdir -p ./config/certificates/testing
+          echo "${{ vars.SIGNATURE_NIP }}" > ./scripts/signature-nip.txt
+          openssl req -newkey rsa:2048 -nodes -keyout "./config/certificates/testing/key.pem" -out "./config/certificates/testing/certificate.csr" -config ./scripts/signature-nip.txt
+          openssl x509 -req -in "./config/certificates/testing/certificate.csr" -signkey "./config/certificates/testing/key.pem" -out "./config/certificates/testing/certificate.crt"
+          openssl pkcs12 -export -out "./config/certificates/testing/certificate.p12" -inkey "./config/certificates/testing/key.pem" -in "./config/certificates/testing/certificate.crt" -passout pass:password
+
       - name: Install Composer dependencies
         run: composer update --no-interaction --prefer-dist --optimize-autoloader
 

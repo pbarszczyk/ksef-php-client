@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Mockery;
 use Mockery\MockInterface;
+use N1ebieski\KSEFClient\ClientBuilder;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\ClientResourceInterface;
 use N1ebieski\KSEFClient\Contracts\ValueAwareInterface;
@@ -16,7 +17,8 @@ use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
 use N1ebieski\KSEFClient\HttpClient\Response;
 use N1ebieski\KSEFClient\Resources\ClientResource;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\AbstractResponseFixture;
-use N1ebieski\KSEFClient\Tests\AbstractTestCase;
+use N1ebieski\KSEFClient\Tests\Feature\AbstractTestCase as FeatureAbstractTestCase;
+use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase as UnitAbstractTestCase;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\BaseUri;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
 use Psr\Http\Message\ResponseInterface;
@@ -33,7 +35,30 @@ use Psr\Http\Message\StreamInterface;
 |
 */
 
-uses(AbstractTestCase::class)->in('Unit');
+uses(UnitAbstractTestCase::class)->in('Unit');
+uses(FeatureAbstractTestCase::class)
+    ->beforeAll(function () {
+        $client = (new ClientBuilder())
+            ->withMode(Mode::Test)
+            ->build();
+
+        $client->testdata()->person()->create([
+            'nip' => $_ENV['NIP'],
+            'pesel' => $_ENV['PESEL'],
+            'isBailiff' => false,
+            'description' => 'testing',
+        ]);
+    })
+    ->afterAll(function () {
+        $client = (new ClientBuilder())
+            ->withMode(Mode::Test)
+            ->build();
+
+        $client->testdata()->person()->remove([
+            'nip' => $_ENV['NIP'],
+        ]);
+    })
+    ->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

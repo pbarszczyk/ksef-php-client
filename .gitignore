@@ -8,4 +8,5 @@
 /bin
 /docs
 .env
+.env.testing
 .php-cs-fixer.cache

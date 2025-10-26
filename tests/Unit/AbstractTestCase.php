@@ -1,6 +1,6 @@
 <?php
 
-namespace N1ebieski\KSEFClient\Tests;
+namespace N1ebieski\KSEFClient\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
