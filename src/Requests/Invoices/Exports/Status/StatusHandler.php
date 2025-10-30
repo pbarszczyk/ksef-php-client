@@ -23,7 +23,7 @@ final class StatusHandler extends AbstractHandler
         return $this->client->sendRequest(new Request(
             method: Method::Get,
             uri: Uri::from(
-                sprintf('invoices/exports/%s', $request->operationReferenceNumber->value)
+                sprintf('invoices/exports/%s', $request->referenceNumber->value)
             )
         ));
     }

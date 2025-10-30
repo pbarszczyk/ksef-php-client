@@ -6,8 +6,9 @@ use N1ebieski\KSEFClient\Requests\Sessions\Invoices\Upo\UpoRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Invoices\Upo\UpoRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Invoices\Upo\UpoResponseFixture;
+use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
+/** @var AbstractTestCase $this */
 
 /**
  * @return array<string, array{UpoRequestFixture, UpoResponseFixture}>
@@ -34,7 +35,8 @@ dataset('validResponseProvider', function (): array {
 });
 
 test('valid response', function (UpoRequestFixture $requestFixture, UpoResponseFixture $responseFixture): void {
-    $clientStub = getClientStub($responseFixture);
+    /** @var AbstractTestCase $this */
+    $clientStub = $this->createClientStub($responseFixture);
 
     $request = UpoRequest::from($requestFixture->data);
 
@@ -49,9 +51,10 @@ test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
     expect(function () use ($responseFixture): void {
+        /** @var AbstractTestCase $this */
         $requestFixture = new UpoRequestFixture();
 
-        $clientStub = getClientStub($responseFixture);
+        $clientStub = $this->createClientStub($responseFixture);
 
         $clientStub->sessions()->invoices()->upo($requestFixture->data);
     })->toBeExceptionFixture($responseFixture->data);

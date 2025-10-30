@@ -17,19 +17,23 @@ use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\DTOs\HttpClient\Request;
 use N1ebieski\KSEFClient\DTOs\Requests\Sessions\Faktura;
 use N1ebieski\KSEFClient\Requests\AbstractHandler;
+use N1ebieski\KSEFClient\Support\Utility;
+use N1ebieski\KSEFClient\Validator\Rules\Xml\SchemaRule;
+use N1ebieski\KSEFClient\Validator\Validator;
 use N1ebieski\KSEFClient\ValueObjects\EncryptionKey;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Method;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Uri;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\EncryptedKey;
+use N1ebieski\KSEFClient\ValueObjects\SchemaPath;
 use RuntimeException;
 
 final class OpenAndSendHandler extends AbstractHandler
 {
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly EncryptDocumentHandler $encryptDocumentHandler,
-        private readonly ZipDocumentsHandler $zipDocumentsHandler,
-        private readonly SplitDocumentIntoPartsHandler $splitDocumentIntoPartsHandler,
+        private readonly EncryptDocumentHandler $encryptDocument,
+        private readonly ZipDocumentsHandler $zipDocuments,
+        private readonly SplitDocumentIntoPartsHandler $splitDocumentIntoParts,
         private readonly Config $config
     ) {
     }
@@ -52,8 +56,16 @@ final class OpenAndSendHandler extends AbstractHandler
             default => $request->faktury,
         };
 
+        if (is_array($documents) && $this->config->validateXml) {
+            foreach ($documents as $document) {
+                Validator::validate($document, [
+                    new SchemaRule(SchemaPath::from(Utility::basePath('resources/xsd/faktura.xsd')))
+                ]);
+            }
+        }
+
         $zipDocument = is_array($documents)
-            ? $this->zipDocumentsHandler->handle(new ZipDocumentsAction($documents))
+            ? $this->zipDocuments->handle(new ZipDocumentsAction($documents))
             : $documents;
 
         $fileSize = strlen($zipDocument);
@@ -62,7 +74,7 @@ final class OpenAndSendHandler extends AbstractHandler
             throw new RuntimeException('File size is too big.');
         }
 
-        $parts = $this->splitDocumentIntoPartsHandler->handle(new SplitDocumentIntoPartsAction(
+        $parts = $this->splitDocumentIntoParts->handle(new SplitDocumentIntoPartsAction(
             document: $zipDocument,
             partSize: ConfigInterface::BATCH_MAX_PART_SIZE
         ));
@@ -70,7 +82,7 @@ final class OpenAndSendHandler extends AbstractHandler
         $encryptedParts = [];
 
         foreach ($parts as $part) {
-            $encryptedParts[] = $this->encryptDocumentHandler->handle(new EncryptDocumentAction(
+            $encryptedParts[] = $this->encryptDocument->handle(new EncryptDocumentAction(
                 encryptionKey: $this->config->encryptionKey,
                 document: $part
             ));

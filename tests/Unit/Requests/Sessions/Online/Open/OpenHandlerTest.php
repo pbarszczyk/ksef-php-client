@@ -6,9 +6,10 @@ use N1ebieski\KSEFClient\Requests\Sessions\Online\Open\OpenRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Open\OpenRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Open\OpenResponseFixture;
+use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\EncryptedKey;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
+/** @var AbstractTestCase $this */
 
 /**
  * @return array<string, array{OpenRequestFixture, OpenResponseFixture}>
@@ -34,9 +35,10 @@ dataset('validResponseProvider', function (): array {
     return $combinations;
 });
 test('valid response', function (OpenRequestFixture $requestFixture, OpenResponseFixture $responseFixture): void {
+    /** @var AbstractTestCase $this */
     $encryptedKey = EncryptedKey::from('string', 'string');
 
-    $clientStub = getClientStub($responseFixture)->withEncryptedKey($encryptedKey);
+    $clientStub = $this->createClientStub($responseFixture)->withEncryptedKey($encryptedKey);
 
     $request = OpenRequest::from($requestFixture->data);
 
@@ -48,10 +50,11 @@ test('valid response', function (OpenRequestFixture $requestFixture, OpenRespons
 })->with('validResponseProvider');
 
 test('invalid response without EncryptedKey', function (): void {
+    /** @var AbstractTestCase $this */
     $requestFixture = new OpenRequestFixture();
     $responseFixture = new OpenResponseFixture();
 
-    $clientStub = getClientStub($responseFixture);
+    $clientStub = $this->createClientStub($responseFixture);
 
     $clientStub->sessions()->online()->open($requestFixture->data)->object();
 })->throws(RuntimeException::class, 'Encrypted key is required to open session.');
@@ -60,9 +63,10 @@ test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
     expect(function () use ($responseFixture): void {
+        /** @var AbstractTestCase $this */
         $requestFixture = new OpenRequestFixture();
 
-        $clientStub = getClientStub($responseFixture);
+        $clientStub = $this->createClientStub($responseFixture);
 
         $clientStub->sessions()->online()->open($requestFixture->data);
     })->toBeExceptionFixture($responseFixture->data);

@@ -6,8 +6,9 @@ use N1ebieski\KSEFClient\Requests\Sessions\Batch\Close\CloseRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\Close\CloseRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\Close\CloseResponseFixture;
+use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
+/** @var AbstractTestCase $this */
 
 /**
  * @return array<string, array{CloseRequestFixture, CloseResponseFixture}>
@@ -34,7 +35,8 @@ dataset('validResponseProvider', function (): array {
 });
 
 test('valid response', function (CloseRequestFixture $requestFixture, CloseResponseFixture $responseFixture): void {
-    $clientStub = getClientStub($responseFixture);
+    /** @var AbstractTestCase $this */
+    $clientStub = $this->createClientStub($responseFixture);
 
     $request = CloseRequest::from($requestFixture->data);
 
@@ -49,9 +51,10 @@ test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
     expect(function () use ($responseFixture): void {
+        /** @var AbstractTestCase $this */
         $requestFixture = new CloseRequestFixture();
 
-        $clientStub = getClientStub($responseFixture);
+        $clientStub = $this->createClientStub($responseFixture);
 
         $clientStub->sessions()->batch()->close($requestFixture->data);
     })->toBeExceptionFixture($responseFixture->data);

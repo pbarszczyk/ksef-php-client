@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions;
 
-final class FakturaSprzedazyTowaruFixture extends FakturaAbstractFixture
+final class FakturaSprzedazyTowaruFixture extends AbstractFakturaFixture
 {
     /**
      * @var array<string, mixed>

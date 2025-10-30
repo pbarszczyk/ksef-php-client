@@ -10,7 +10,7 @@ use N1ebieski\KSEFClient\ValueObjects\Requests\ReferenceNumber;
 final class StatusRequest extends AbstractRequest
 {
     public function __construct(
-        public readonly ReferenceNumber $operationReferenceNumber,
+        public readonly ReferenceNumber $referenceNumber,
     ) {
     }
 }

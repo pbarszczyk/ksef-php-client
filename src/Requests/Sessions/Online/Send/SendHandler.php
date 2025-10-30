@@ -11,9 +11,13 @@ use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\DTOs\HttpClient\Request;
 use N1ebieski\KSEFClient\Requests\AbstractHandler;
+use N1ebieski\KSEFClient\Support\Utility;
+use N1ebieski\KSEFClient\Validator\Rules\Xml\SchemaRule;
+use N1ebieski\KSEFClient\Validator\Validator;
 use N1ebieski\KSEFClient\ValueObjects\EncryptionKey;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Method;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Uri;
+use N1ebieski\KSEFClient\ValueObjects\SchemaPath;
 use RuntimeException;
 
 final class SendHandler extends AbstractHandler
@@ -32,6 +36,12 @@ final class SendHandler extends AbstractHandler
         }
 
         $xml = $request->toXml();
+
+        if ($this->config->validateXml) {
+            Validator::validate($xml, [
+                new SchemaRule(SchemaPath::from(Utility::basePath('resources/xsd/faktura.xsd')))
+            ]);
+        }
 
         $encryptedXml = $this->encryptDocument->handle(new EncryptDocumentAction(
             encryptionKey: $this->config->encryptionKey,

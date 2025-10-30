@@ -10,7 +10,7 @@ use N1ebieski\KSEFClient\Testing\Fixtures\AbstractFixture as BaseAbstractFixture
 /**
  * @property array<string, mixed> $data
  */
-abstract class FakturaAbstractFixture extends BaseAbstractFixture
+abstract class AbstractFakturaFixture extends BaseAbstractFixture
 {
     public function withTodayDate(): self
     {
@@ -32,7 +32,7 @@ abstract class FakturaAbstractFixture extends BaseAbstractFixture
         return $this;
     }
 
-    public function withNIP(string $nip): self
+    public function withNip(string $nip): self
     {
         $this->data['podmiot1']['daneIdentyfikacyjne']['nip'] = $nip;
 

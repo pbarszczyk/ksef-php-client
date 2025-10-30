@@ -13,6 +13,7 @@ Main features:
 - Support for async batch send multiple invoices
 - Logical invoice structure mapped to DTOs and ValueObjects
 - Automatic access token refresh
+- Automatic XML document validation based on XSD schemas
 - CSR (Certificate Signing Request) handling
 - KSeF exception handling
 - QR codes generation
@@ -43,6 +44,9 @@ Main features:
             - [Auth Session List](#auth-sessions-list)
             - [Auth Session Revoke Current](#auth-sessions-revoke-current)
             - [Auth Session Revoke](#auth-sessions-revoke)
+    - [Limits](#limits)
+        - [Limits Context](#limits-context)
+        - [Limits Subject](#limits-subject)
     - [Security](#security)
         - [Security Public Key Certificates](#security-public-key-certificates)
     - [Sessions](#sessions)
@@ -83,7 +87,18 @@ Main features:
         - [Testdata Person](#testdata-person)
             - [Testdata Person Create](#testdata-person-create)
             - [Testdata Person Remove](#testdata-person-remove)
+        - [Testdata Limits](#testdata-limits)
+            - [Testdata Limits Context](#testdata-limits-context)
+                - [Testdata Limits Context Session](#testdata-limits-context-session)
+                    - [Testdata Limits Context Session Limits](#testdata-limits-context-session-limits)
+                    - [Testdata Limits Context Session Reset](#testdata-limits-context-session-reset)
+            - [Testdata Limits Subject](#testdata-limits-subject)
+                - [Testdata Limits Subject Certificate](#testdata-limits-subject-certificate)
+                    - [Testdata Limits Subject Certificate Limits](#testdata-limits-subject-certificate-limits)
+                    - [Testdata Limits Subject Certificate Reset](#testdata-limits-subject-certificate-reset)            
+
 - [Examples](#examples)
+    - [Integration with a frontend application using certificate-based authentication](#integration-with-a-frontend-application-using-certificate-based-authentication)
     - [Generate a KSEF certificate and convert to .p12 file](#generate-a-ksef-certificate-and-convert-to-p12-file)
     - [Send an invoice, check for UPO and generate QR code](#send-an-invoice-check-for-upo-and-generate-qr-code)
     - [Batch async send multiple invoices and check for UPO](#batch-async-send-multiple-invoices-and-check-for-upo)
@@ -130,6 +145,7 @@ $client = (new ClientBuilder())
     ->withEncryptionKey(EncryptionKeyFactory::makeRandom()) // Required for invoice resources. Remember to save this value!
     ->withIdentifier('NIP_NUMBER') // Required for authorization. Optional otherwise
     ->withAsyncMaxConcurrency(8) // Optional. Maximum concurrent send operations during asynchronous sending
+    ->withValidateXml(true) // Optional. XML document validation based on XSD schemas
     ->build();
 ```
 
@@ -368,7 +384,7 @@ $response = $client->auth()->sessions()->list(
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1api~1v2~1auth~1sessions~1current/delete
 
 ```php
-$response = $client->auth()->sessions()->revokeCurrent()->object();
+$response = $client->auth()->sessions()->revokeCurrent()->status();
 ```
 </details>
 
@@ -384,6 +400,40 @@ use N1ebieski\KSEFClient\Requests\Auth\Sessions\Revoke\RevokeRequest;
 
 $response = $client->auth()->sessions()->revoke(
     new RevokeRequest(...)
+)->status();
+```
+</details>
+
+### Limits
+
+<details>
+    <summary>
+        <h5>Limits Context</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1context/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Limits\Context\ContextRequest;
+
+$response = $client->limits()->context(
+    new ContextRequest(...)
+)->object();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Limits Subject</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1subject/get
+
+```php
+use N1ebieski\KSEFClient\Requests\Limits\Subject\SubjectRequest;
+
+$response = $client->limits()->subject(
+    new SubjectRequest(...)
 )->object();
 ```
 </details>
@@ -868,7 +918,85 @@ $response = $client->testdata()->person()->remove(
 ```
 </details>
 
+#### Testdata Limits
+
+##### Testdata Limits Context
+
+###### Testdata Limits Context Session
+
+<details>
+    <summary>
+        <h5>Testdata Limits Context Session Limits</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Limits\LimitsRequest;
+
+$response = $client->testdata()->limits()->context()->session()->limits(
+    new LimitsRequest(...)
+)->status();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Testdata Limits Context Session Reset</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/delete
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Reset\ResetRequest;
+
+$response = $client->testdata()->limits()->context()->session()->reset(
+    new ResetRequest(...)
+)->status();
+```
+</details>
+
+##### Testdata Limits Subject
+
+###### Testdata Limits Subject Certificate
+
+<details>
+    <summary>
+        <h5>Testdata Limits Subject Certificate Limits</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Limits\LimitsRequest;
+
+$response = $client->testdata()->limits()->subject()->certificate()->limits(
+    new LimitsRequest(...)
+)->status();
+```
+</details>
+
+<details>
+    <summary>
+        <h5>Testdata Limits Subject Certificate Reset</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/delete
+
+```php
+use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Reset\ResetRequest;
+
+$response = $client->testdata()->limits()->subject()->certificate()->reset(
+    new ResetRequest(...)
+)->status();
+```
+</details>
+
 ## Examples
+
+### Integration with a frontend application using certificate-based authentication
+
+https://github.com/N1ebieski/ksef-app-example.test
 
 <details>
     <summary>
@@ -974,12 +1102,15 @@ use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
+use N1ebieski\KSEFClient\ValueObjects\Requests\KsefNumber;
 
 $encryptionKey = EncryptionKeyFactory::makeRandom();
 
+$nip = 'NIP_NUMBER';
+
 $client = (new ClientBuilder())
     ->withMode(Mode::Test)
-    ->withIdentifier('NIP_NUMBER')
+    ->withIdentifier($nip)
     ->withCertificatePath($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE'])
     ->withEncryptionKey($encryptionKey)
     ->build();
@@ -988,7 +1119,10 @@ $openResponse = $client->sessions()->online()->open([
     'formCode' => 'FA (3)',
 ])->object();
 
-$fakturaFixture = (new FakturaSprzedazyTowaruFixture())->withRandomInvoiceNumber()->withTodayDate();
+$fakturaFixture = (new FakturaSprzedazyTowaruFixture())
+    ->withRandomInvoiceNumber()
+    ->withNip($nip)
+    ->withTodayDate();
 
 $fixture = (new SendRequestFixture())->withFakturaFixture($fakturaFixture);
 
@@ -1035,16 +1169,19 @@ $generateQRCodesHandler = new GenerateQRCodesHandler(
     convertEcdsaDerToRawHandler: new ConvertEcdsaDerToRawHandler()
 );
 
+$ksefNumber = KsefNumber::from($statusResponse->ksefNumber);
+
 /** @var QRCodes $qrCodes */
-$qrCodes = $generateQRCodesHandler->handle(GenerateQRCodesAction::from([
-    'nip' => $faktura->podmiot1->daneIdentyfikacyjne->nip,
-    'invoiceCreatedAt' => $faktura->fa->p_1->value,
-    'document' => $faktura->toXml(),
-    'ksefNumber' => $statusResponse->ksefNumber
-]));
+$qrCodes = $generateQRCodesHandler->handle(new GenerateQRCodesAction(
+    mode: Mode::Test,
+    nip: $faktura->podmiot1->daneIdentyfikacyjne->nip,
+    invoiceCreatedAt: $faktura->fa->p_1->value,
+    document: $faktura->toXml(),
+    ksefNumber: $ksefNumber
+));
 
 // Invoice link
-file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1);
+file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1->raw);
 ```
 </details>
 
@@ -1064,9 +1201,11 @@ use N1ebieski\KSEFClient\ValueObjects\Mode;
 
 $encryptionKey = EncryptionKeyFactory::makeRandom();
 
+$nip = 'NIP_NUMBER';
+
 $client = (new ClientBuilder())
     ->withMode(Mode::Test)
-    ->withIdentifier('NIP_NUMBER')
+    ->withIdentifier($nip)
     ->withCertificatePath($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE'])
     ->withEncryptionKey($encryptionKey)
     ->build();
@@ -1074,6 +1213,7 @@ $client = (new ClientBuilder())
 $faktury = array_map(
     fn () => (new FakturaSprzedazyTowaruFixture())
         ->withTodayDate()
+        ->withNip($nip)
         ->withRandomInvoiceNumber()
         ->data,
     range(1, 100)
@@ -1128,22 +1268,29 @@ use N1ebieski\KSEFClient\Actions\ConvertEcdsaDerToRaw\ConvertEcdsaDerToRawHandle
 use N1ebieski\KSEFClient\Actions\GenerateQRCodes\GenerateQRCodesAction;
 use N1ebieski\KSEFClient\Actions\GenerateQRCodes\GenerateQRCodesHandler;
 use N1ebieski\KSEFClient\DTOs\QRCodes;
+use N1ebieski\KSEFClient\DTOs\Requests\Auth\ContextIdentifierGroup;
 use N1ebieski\KSEFClient\DTOs\Requests\Sessions\Faktura;
 use N1ebieski\KSEFClient\Factories\CertificateFactory;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
+use N1ebieski\KSEFClient\ValueObjects\CertificateSerialNumber;
+use N1ebieski\KSEFClient\ValueObjects\Mode;
+use N1ebieski\KSEFClient\ValueObjects\NIP;
 
 $nip = 'NIP_NUMBER';
 
 // From https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1query/post
-$certificateSerialNumber = $_ENV['CERTIFICATE_SERIAL_NUMBER'];
+$certificateSerialNumber = CertificateSerialNumber::from($_ENV['CERTIFICATE_SERIAL_NUMBER']);
 // Remember: this certificate must be "Offline" type, not "Authentication"
 $certificate = CertificateFactory::make(
     CertificatePath::from($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE'])
 );
 
-$fakturaFixture = (new FakturaSprzedazyTowaruFixture())->withTodayDate()->withRandomInvoiceNumber();
+$fakturaFixture = (new FakturaSprzedazyTowaruFixture())
+    ->withTodayDate()
+    ->withNip($nip)
+    ->withRandomInvoiceNumber();
 
 $faktura = Faktura::from($fakturaFixture->data);
 
@@ -1154,25 +1301,24 @@ $generateQRCodesHandler = new GenerateQRCodesHandler(
     convertEcdsaDerToRawHandler: new ConvertEcdsaDerToRawHandler()
 );
 
+$contextIdentifierGroup = ContextIdentifierGroup::fromIdentifier(NIP::from($nip));
+
 /** @var QRCodes $qrCodes */
-$qrCodes = $generateQRCodesHandler->handle(GenerateQRCodesAction::from([
-    'nip' => $faktura->podmiot1->daneIdentyfikacyjne->nip,
-    'invoiceCreatedAt' => $faktura->fa->p_1->value,
-    'document' => $faktura->toXml(),
-    'certificate' => $certificate,
-    'certificateSerialNumber' => $certificateSerialNumber,
-    'contextIdentifierGroup' => [
-        'identifierGroup' => [
-            'nip' => $nip
-        ]
-    ]
-]));
+$qrCodes = $generateQRCodesHandler->handle(new GenerateQRCodesAction(
+    mode: Mode::Test,
+    nip: $faktura->podmiot1->daneIdentyfikacyjne->nip,
+    invoiceCreatedAt: $faktura->fa->p_1->value,
+    document: $faktura->toXml(),
+    certificate: $certificate,
+    certificateSerialNumber: $certificateSerialNumber,
+    contextIdentifierGroup: $contextIdentifierGroup
+));
 
 // Invoice link
-file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1);
+file_put_contents(Utility::basePath("var/qr/code1.png"), $qrCodes->code1->raw);
 
 // Certificate verification link
-file_put_contents(Utility::basePath("var/qr/code2.png"), $qrCodes->code2);
+file_put_contents(Utility::basePath("var/qr/code2.png"), $qrCodes->code2->raw);
 ```
 
 </details>
@@ -1214,7 +1360,7 @@ $initResponse = $client->invoices()->exports()->init([
 
 $statusResponse = Utility::retry(function () use ($client, $initResponse) {
     $statusResponse = $client->invoices()->exports()->status([
-        'operationReferenceNumber' => $initResponse->operationReferenceNumber
+        'referenceNumber' => $initResponse->referenceNumber
     ])->object();
 
     if ($statusResponse->status->code === 200) {
@@ -1231,6 +1377,8 @@ $statusResponse = Utility::retry(function () use ($client, $initResponse) {
 
 $decryptDocumentHandler = new DecryptDocumentHandler();
 
+$zipContents = '';
+
 // Downloading...
 foreach ($statusResponse->package->parts as $part) {
     $contents = file_get_contents($part->url);
@@ -1240,20 +1388,20 @@ foreach ($statusResponse->package->parts as $part) {
         encryptionKey: $encryptionKey
     ));
 
-    $name = rtrim($part->partName, '.aes');
-
-    file_put_contents(Utility::basePath("var/zip/{$name}"), $contents);
+    $zipContents .= $contents;
 }
+
+file_put_contents(Utility::basePath("var/zip/invoices.zip"), $zipContents);
+
+var_dump($statusResponse);
 ```
 </details>
 
 ## Testing
 
-The package uses unit tests via [Pest](https://pestphp.com). 
+The package uses unit and feature tests via [Pest](https://pestphp.com). 
 
 Pest configuration is located in ```tests/Pest```
-
-TestCase is located in ```tests/AbstractTestCase```
 
 Fake request and responses fixtures for resources are located in ```src/Testing/Fixtures/Requests```
 
@@ -1264,7 +1412,7 @@ composer install
 ```
 
 ```bash
-vendor/bin/pest
+vendor/bin/pest --parallel
 ```
 
 ## Roadmap

@@ -17,10 +17,11 @@ use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\CurrencyCode;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\FormType;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\InvoiceType;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\InvoicingMode;
+use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\PageSize;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Invoices\SubjectType;
 use N1ebieski\KSEFClient\ValueObjects\Requests\KsefNumber;
 use N1ebieski\KSEFClient\ValueObjects\Requests\PageOffset;
-use N1ebieski\KSEFClient\ValueObjects\Requests\PageSize;
+use N1ebieski\KSEFClient\ValueObjects\Requests\SortOrder;
 
 final class MetadataRequest extends AbstractRequest implements ParametersInterface, BodyInterface
 {
@@ -42,6 +43,7 @@ final class MetadataRequest extends AbstractRequest implements ParametersInterfa
         public readonly Optional | FormType $formType = new Optional(),
         public readonly Optional | array $invoiceTypes = new Optional(),
         public readonly Optional | bool $hasAttachment = new Optional(),
+        public readonly Optional | SortOrder $sortOrder = new Optional(),
         public readonly Optional | PageSize $pageSize = new Optional(),
         public readonly Optional | PageOffset $pageOffset = new Optional(),
     ) {

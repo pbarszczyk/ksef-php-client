@@ -22,7 +22,7 @@ final class ExceptionFactory extends AbstractFactory
         int $statusCode,
         ?object $exceptionResponse
     ): Exception {
-        $message = '';
+        $message = null;
 
         if ($exceptionResponse !== null) {
             $exceptions = $exceptionResponse->exception->exceptionDetailList;
@@ -40,7 +40,7 @@ final class ExceptionFactory extends AbstractFactory
             $statusCode === 500 => InternalServerException::class,
             $statusCode === 501 => UnknownSystemException::class,
             $statusCode === 401 => Utility::value(function () use (&$message): string {
-                $message = 'Unauthorized';
+                $message ??= 'Unauthorized';
 
                 return ClientException::class;
             }),
@@ -50,7 +50,7 @@ final class ExceptionFactory extends AbstractFactory
         };
 
         return new $exceptionNamespace(
-            message: $message,
+            message: $message ?? '',
             code: $statusCode,
             context: $exceptionResponse
         );

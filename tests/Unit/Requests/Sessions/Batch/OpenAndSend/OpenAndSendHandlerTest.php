@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
-use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaAbstractFixture;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
 use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
 use N1ebieski\KSEFClient\HttpClient\Response;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendRequest;
 use N1ebieski\KSEFClient\Resources\ClientResource;
+use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\AbstractFakturaFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Error\ErrorResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\OpenAndSendRequestFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\OpenAndSendResponseFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Batch\OpenAndSend\SendResponseFixture;
+use N1ebieski\KSEFClient\Tests\Unit\AbstractTestCase;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\BaseUri;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\EncryptedKey;
 
-use function N1ebieski\KSEFClient\Tests\getClientStub;
-use function N1ebieski\KSEFClient\Tests\getHttpClientStub;
-use function N1ebieski\KSEFClient\Tests\getResponseStub;
+/** @var AbstractTestCase $this */
 
 /**
  * @return array<string, array{OpenAndSendRequestFixture, OpenAndSendResponseFixture}>
@@ -28,7 +27,7 @@ use function N1ebieski\KSEFClient\Tests\getResponseStub;
 dataset('validResponseProvider', function (): array {
     $requests = [
         (new OpenAndSendRequestFixture())->withFakturaFixtures(array_map(
-            fn (): FakturaAbstractFixture => (new FakturaSprzedazyTowaruFixture())
+            fn (): AbstractFakturaFixture => (new FakturaSprzedazyTowaruFixture())
                 ->withTodayDate()
                 ->withRandomInvoiceNumber(),
             range(1, 3)
@@ -52,16 +51,21 @@ dataset('validResponseProvider', function (): array {
 });
 
 test('valid response', function (OpenAndSendRequestFixture $requestFixture, OpenAndSendResponseFixture $responseFixture): void {
+    /** @var AbstractTestCase $this */
     $encryptedKey = EncryptedKey::from('string', 'string');
 
-    $httpClientStub = getHttpClientStub($responseFixture);
+    $httpClientStub = $this->createHttpClientStub($responseFixture);
     $httpClientStub->shouldReceive('sendAsyncRequest')
-        ->andReturn([new Response(getResponseStub(new SendResponseFixture()), new ExceptionHandler())]);
+        ->andReturn([new Response($this->createResponseStub(new SendResponseFixture()))]);
 
-    $clientStub = (new ClientResource($httpClientStub, new Config(
-        baseUri: new BaseUri(Mode::Test->getApiUrl()->value),
-        encryptionKey: EncryptionKeyFactory::makeRandom()
-    )))->withEncryptedKey($encryptedKey);
+    $clientStub = (new ClientResource(
+        client: $httpClientStub,
+        config: new Config(
+            baseUri: new BaseUri(Mode::Test->getApiUrl()->value),
+            encryptionKey: EncryptionKeyFactory::makeRandom()
+        ),
+        exceptionHandler: new ExceptionHandler(),
+    ))->withEncryptedKey($encryptedKey);
 
     $request = OpenAndSendRequest::from($requestFixture->data);
 
@@ -73,10 +77,11 @@ test('valid response', function (OpenAndSendRequestFixture $requestFixture, Open
 })->with('validResponseProvider');
 
 test('invalid response without EncryptedKey', function (): void {
+    /** @var AbstractTestCase $this */
     $requestFixture = new OpenAndSendRequestFixture();
     $responseFixture = new OpenAndSendResponseFixture();
 
-    $clientStub = getClientStub($responseFixture);
+    $clientStub = $this->createClientStub($responseFixture);
 
     $clientStub->sessions()->batch()->openAndSend($requestFixture->data)->object();
 })->throws(RuntimeException::class, 'Encrypted key is required to open session.');
@@ -85,9 +90,10 @@ test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
     expect(function () use ($responseFixture): void {
+        /** @var AbstractTestCase $this */
         $requestFixture = new OpenAndSendRequestFixture();
 
-        $clientStub = getClientStub($responseFixture);
+        $clientStub = $this->createClientStub($responseFixture);
 
         $clientStub->sessions()->batch()->openAndSend($requestFixture->data);
     })->toBeExceptionFixture($responseFixture->data);
