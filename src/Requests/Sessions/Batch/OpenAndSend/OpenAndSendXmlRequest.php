@@ -6,7 +6,7 @@ namespace N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend;
 
 use N1ebieski\KSEFClient\Contracts\BodyInterface;
 use N1ebieski\KSEFClient\Requests\AbstractRequest;
-use N1ebieski\KSEFClient\Support\Concerns\HasToBody;
+use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\Concerns\HasToBody;
 use N1ebieski\KSEFClient\Support\Optional;
 use N1ebieski\KSEFClient\ValueObjects\Requests\Sessions\FormCode;
 
