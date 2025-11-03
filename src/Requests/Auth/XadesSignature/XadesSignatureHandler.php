@@ -32,13 +32,13 @@ final class XadesSignatureHandler extends AbstractHandler
     {
         $signedXml = $request->toXml();
 
-        if ($this->config->validateXml) {
-            Validator::validate($signedXml, [
-                new SchemaRule(SchemaPath::from(Utility::basePath('resources/xsd/authv2.xsd')))
-            ]);
-        }
-
         if ($request instanceof XadesSignatureRequest) {
+            if ($this->config->validateXml) {
+                Validator::validate($signedXml, [
+                    new SchemaRule(SchemaPath::from(Utility::basePath('resources/xsd/authv2.xsd')))
+                ]);
+            }
+
             $signedXml = $this->signDocument->handle(
                 new SignDocumentAction(
                     certificate: CertificateFactory::make($request->certificatePath),
