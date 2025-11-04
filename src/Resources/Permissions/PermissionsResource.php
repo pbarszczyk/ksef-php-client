@@ -7,6 +7,7 @@ namespace N1ebieski\KSEFClient\Resources\Permissions;
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Authorizations\AuthorizationsResourceInterface;
+use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Common\CommonResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Entities\EntitiesResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\EuEntities\EuEntitiesResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Indirect\IndirectResourceInterface;
@@ -15,6 +16,7 @@ use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Persons\PersonsResource
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Subunits\SubunitsResourceInterface;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Authorizations\AuthorizationsResource;
+use N1ebieski\KSEFClient\Resources\Permissions\Common\CommonResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Entities\EntitiesResource;
 use N1ebieski\KSEFClient\Resources\Permissions\EuEntities\EuEntitiesResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Indirect\IndirectResource;
@@ -28,6 +30,15 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         private readonly HttpClientInterface $client,
         private readonly ExceptionHandlerInterface $exceptionHandler
     ) {
+    }
+
+    public function common(): CommonResourceInterface
+    {
+        try {
+            return new CommonResource($this->client, $this->exceptionHandler);
+        } catch (Throwable $throwable) {
+            throw $this->exceptionHandler->handle($throwable);
+        }
     }
 
     public function persons(): PersonsResourceInterface
