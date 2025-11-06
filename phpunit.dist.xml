@@ -25,5 +25,9 @@
         <env name="NIP_2" value="6669666922" />
         <env name="CERTIFICATE_PATH_2" value="config/certificates/testing/6669666922/certificate.p12" />
         <env name="CERTIFICATE_PASSPHRASE_2" value="password" />
+
+        <env name="NIP_3" value="6669666923" />
+        <env name="CERTIFICATE_PATH_3" value="config/certificates/testing/6669666923/certificate.p12" />
+        <env name="CERTIFICATE_PASSPHRASE_3" value="password" />        
     </php>
 </phpunit>
