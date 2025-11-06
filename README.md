@@ -737,7 +737,7 @@ $response = $client->invoices()->exports()->status(
 
 <details>
     <summary>
-        <h5>Certificates Persons Grants</h5>
+        <h5>Permissions Persons Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1persons~1grants/post
@@ -755,7 +755,7 @@ $response = $client->permissions()->persons()->grants(
 
 <details>
     <summary>
-        <h5>Certificates Entities Grants</h5>
+        <h5>Permissions Entities Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1entities~1grants/post
@@ -773,7 +773,7 @@ $response = $client->permissions()->entities()->grants(
 
 <details>
     <summary>
-        <h5>Certificates Authorizations Grants</h5>
+        <h5>Permissions Authorizations Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1authorizations~1grants/post
@@ -789,7 +789,7 @@ $response = $client->permissions()->authorizations()->grants(
 
 <details>
     <summary>
-        <h5>Certificates Authorizations Grants Revoke</h5>
+        <h5>Permissions Authorizations Grants Revoke</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1api~1v2~1permissions~1authorizations~1grants~1%7BpermissionId%7D/delete
@@ -807,7 +807,7 @@ $response = $client->permissions()->authorizations()->revoke(
 
 <details>
     <summary>
-        <h5>Certificates Indirect Grants</h5>
+        <h5>Permissions Indirect Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1indirect~1grants/post
@@ -825,7 +825,7 @@ $response = $client->permissions()->indirect()->grants(
 
 <details>
     <summary>
-        <h5>Certificates Subunits Grants</h5>
+        <h5>Permissions Subunits Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1subunits~1grants/post
@@ -841,27 +841,9 @@ $response = $client->permissions()->subunits()->grants(
 
 #### Permissions EuEntities
 
-##### Permissions EuEntities Administration
-
 <details>
     <summary>
-        <h5>Certificates EuEntities Administration Grants</h5>
-    </summary>
-
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1eu-entities~1administration~1grants/post
-
-```php
-use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Administration\Grants\GrantsRequest;
-
-$response = $client->permissions()->euEntities()->administration()->grants(
-    new GrantsRequest(...)
-)->object();
-```
-</details>
-
-<details>
-    <summary>
-        <h5>Certificates EuEntities Grants</h5>
+        <h5>Permissions EuEntities Grants</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1eu-entities~1grants/post
@@ -875,11 +857,29 @@ $response = $client->permissions()->euEntities()->grants(
 ```
 </details>
 
+##### Permissions EuEntities Administration
+
+<details>
+    <summary>
+        <h5>Permissions EuEntities Administration Grants</h5>
+    </summary>
+
+https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1eu-entities~1administration~1grants/post
+
+```php
+use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Administration\Grants\GrantsRequest;
+
+$response = $client->permissions()->euEntities()->administration()->grants(
+    new GrantsRequest(...)
+)->object();
+```
+</details>
+
 #### Permissions Common
 
 <details>
     <summary>
-        <h5>Certificates Common Grants Revoke</h5>
+        <h5>Permissions Common Grants Revoke</h5>
     </summary>
 
 https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1api~1v2~1permissions~1common~1grants~1%7BpermissionId%7D/delete
