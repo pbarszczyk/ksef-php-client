@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use N1ebieski\KSEFClient\Requests\Sessions\Online\Send\SendRequest;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaDaneNabywcyFixture;
+use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaPozaKsefFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaKorygujacaUniwersalnaFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyUslugLeasinguOperacyjnegoFixture;
@@ -39,6 +40,7 @@ dataset('validResponseProvider', function (): array {
         (new SendRequestFixture())->withFakturaFixture(new FakturaZVatUEFixture())->withName('faktura z VAT UE'),
         (new SendRequestFixture())->withFakturaFixture(new FakturaZZaplataCzesciowaFixture())->withName('faktura z zapłatą częściową'),
         (new SendRequestFixture())->withFakturaFixture(new FakturaZwolnienieVatFixture())->withName('faktura zwolnięcie VAT'),
+        (new SendRequestFixture())->withFakturaFixture(new FakturaKorygujacaPozaKsefFixture())->withName('faktura korygująca poza KSEF'),
     ];
 
     $responses = [
