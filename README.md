@@ -10,6 +10,7 @@ PHP API client that allows you to interact with the [KSEF API](https://ksef-test
 Main features:
 
 - Support for authorization using qualified certificates, KSeF certificates, KSeF tokens, and trusted ePUAP signatures (manual mode)
+- Support for signatures with both RSA and EC keys
 - Support for async batch send multiple invoices
 - Logical invoice structure mapped to DTOs and ValueObjects
 - Automatic access token refresh
@@ -161,6 +162,7 @@ $client = (new ClientBuilder())
     ->withHttpClient(new \GuzzleHttp\Client(...)) // Optional PSR-18 implementation, default is set by Psr18ClientDiscovery::find()
     ->withLogger(new \Monolog\Logger(...)) // Optional PSR-3 implementation, default is set by PsrDiscovery\Discover::log()
     ->withLogPath($_ENV['PATH_TO_LOG_FILE'], $_ENV['LOG_LEVEL']) // Optional, level: null disables logging
+    ->withExceptionHandler(new \ExceptionHandler(...)) // Optional N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface implmentation
     ->withAccessToken($_ENV['ACCESS_TOKEN'], $_ENV['VALID_UNTIL']) // Optional, if present, auto authorization is skipped
     ->withRefreshToken($_ENV['REFRESH_TOKEN'], $_ENV['VALID_UNTIL']) // Optional, if present, auto refresh access token is enabled
     ->withKsefToken($_ENV['KSEF_TOKEN']) // Required for API Token authorization. Optional otherwise

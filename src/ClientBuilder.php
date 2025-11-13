@@ -273,6 +273,13 @@ final class ClientBuilder
         return $this;
     }
 
+    public function withExceptionHandler(ExceptionHandlerInterface $exceptionHandler): self
+    {
+        $this->exceptionHandler = $exceptionHandler;
+
+        return $this;
+    }
+
     public function build(): ClientResourceInterface
     {
         $config = new Config(
@@ -290,7 +297,7 @@ final class ClientBuilder
             logger: $this->logger
         );
 
-        $this->exceptionHandler = new ExceptionHandler($this->logger);
+        $this->exceptionHandler ??= new ExceptionHandler($this->logger);
 
         $client = new ClientResource(
             client: $httpClient,
