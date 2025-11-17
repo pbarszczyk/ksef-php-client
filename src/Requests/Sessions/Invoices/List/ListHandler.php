@@ -24,7 +24,9 @@ final class ListHandler extends AbstractHandler
             method: Method::Get,
             uri: Uri::from(
                 sprintf('sessions/%s/invoices', $request->referenceNumber->value)
-            )
+            ),
+            headers: $request->toHeaders(),
+            parameters: $request->toParameters(),
         ));
     }
 }
