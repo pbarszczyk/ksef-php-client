@@ -1534,7 +1534,6 @@ use N1ebieski\KSEFClient\Actions\GeneratePDF\GeneratePDFAction;
 use N1ebieski\KSEFClient\Actions\GeneratePDF\GeneratePDFHandler;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\ValueObjects\KsefFeInvoiceConverterPath;
-use setasign\Fpdi\Fpdi;
 
 // Send an invoice using example https://github.com/N1ebieski/ksef-php-client?tab=readme-ov-file#send-an-invoice-check-for-upo-and-generate-qr-code
 
@@ -1706,7 +1705,6 @@ use N1ebieski\KSEFClient\Actions\GeneratePDF\GeneratePDFAction;
 use N1ebieski\KSEFClient\Actions\GeneratePDF\GeneratePDFHandler;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\ValueObjects\KsefFeInvoiceConverterPath;
-use setasign\Fpdi\Fpdi;
 
 // Create an offline invoice using example https://github.com/N1ebieski/ksef-php-client?tab=readme-ov-file#create-an-offline-invoice-and-generate-both-qr-codes
 
