@@ -1553,6 +1553,9 @@ file_put_contents(Utility::basePath("var/pdf/{$ksefNumber->value}.pdf"), $pdfs->
 file_put_contents(Utility::basePath("var/pdf/UPO-{$sendResponse->referenceNumber}.pdf"), $pdfs->upo);
 ```
 
+[PDF invoice example.pdf](https://github.com/user-attachments/files/23744618/ONLINE.pdf)
+[UPO-example.pdf](https://github.com/user-attachments/files/23747747/UPO-20251124-EE-4148363000-80035B5E1C-6A.pdf)
+
 </details>
 
 <details>
@@ -1720,6 +1723,9 @@ $pdfs = (new GeneratePDFHandler())->handle(new GeneratePDFAction(
 
 file_put_contents(Utility::basePath("var/pdf/{$faktura->fa->p_2->value}.pdf"), $pdfs->invoice);
 ```
+
+[PDF offline invoice EC certificate example.pdf](https://github.com/user-attachments/files/23744619/OFFLINE-CERTYFIKAT-EC.pdf)
+[PDF offline invoice RSA certificate example.pdf](https://github.com/user-attachments/files/23744620/OFFLINE-CERTYFIKAT-RSA.pdf)
 
 </details>
 
