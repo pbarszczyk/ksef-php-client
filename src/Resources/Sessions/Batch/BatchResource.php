@@ -16,6 +16,7 @@ use N1ebieski\KSEFClient\Requests\Sessions\Batch\Close\CloseHandler;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\Close\CloseRequest;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendHandler;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendRequest;
+use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendResponse;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendXmlRequest;
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\OpenAndSend\OpenAndSendZipRequest;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
@@ -32,7 +33,7 @@ final class BatchResource extends AbstractResource implements BatchResourceInter
     ) {
     }
 
-    public function openAndSend(OpenAndSendRequest | OpenAndSendXmlRequest | OpenAndSendZipRequest | array $request): ResponseInterface
+    public function openAndSend(OpenAndSendRequest | OpenAndSendXmlRequest | OpenAndSendZipRequest | array $request): OpenAndSendResponse
     {
         try {
             if (is_array($request)) {

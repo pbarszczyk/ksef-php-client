@@ -1595,10 +1595,14 @@ $faktury = array_map(
 // For sending invoices as DTOs use OpenAndSendRequest or array
 // For sending invoices as XMLs use OpenAndSendXmlRequest
 // For sending invoices as ZIP use OpenAndSendZipRequest
-$openResponse = $client->sessions()->batch()->openAndSend([
+$openAndSendResponse = $client->sessions()->batch()->openAndSend([
     'formCode' => 'FA (3)',
     'faktury' => $faktury
-])->object();
+]);
+
+$openResponse = $openAndSendResponse->object();
+
+$partUploadResponses = $openAndSendResponse->partUploadResponses;
 
 $client->sessions()->batch()->close([
     'referenceNumber' => $openResponse->referenceNumber
