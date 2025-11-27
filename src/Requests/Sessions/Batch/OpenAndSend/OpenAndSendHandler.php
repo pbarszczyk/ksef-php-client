@@ -12,7 +12,6 @@ use N1ebieski\KSEFClient\Actions\ZipDocuments\ZipDocumentsAction;
 use N1ebieski\KSEFClient\Actions\ZipDocuments\ZipDocumentsHandler;
 use N1ebieski\KSEFClient\Contracts\ConfigInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\DTOs\HttpClient\Request;
 use N1ebieski\KSEFClient\DTOs\Requests\Sessions\Faktura;
@@ -38,7 +37,7 @@ final class OpenAndSendHandler extends AbstractHandler
     ) {
     }
 
-    public function handle(OpenAndSendRequest | OpenAndSendXmlRequest | OpenAndSendZipRequest $request): ResponseInterface
+    public function handle(OpenAndSendRequest | OpenAndSendXmlRequest | OpenAndSendZipRequest $request): OpenAndSendResponse
     {
         if ($this->config->encryptionKey instanceof EncryptionKey === false) {
             throw new RuntimeException('Encryption key is required to send invoice.');
@@ -117,7 +116,7 @@ final class OpenAndSendHandler extends AbstractHandler
         /** @var object{referenceNumber: string, partUploadRequests: array<int, object{ordinalNumber: int, method: string, url: string, headers: array<string, string>}>} */
         $openResponseToObject = $openResponse->object();
 
-        $this->client
+        $partuploadResponses = $this->client
             ->withoutAccessToken()
             ->sendAsyncRequest(array_map(fn (object $partUploadRequest): Request => new Request(
                 method: Method::from($partUploadRequest->method),
@@ -126,6 +125,6 @@ final class OpenAndSendHandler extends AbstractHandler
                 body: $encryptedParts[$partUploadRequest->ordinalNumber - 1],
             ), $openResponseToObject->partUploadRequests));
 
-        return $openResponse;
+        return new OpenAndSendResponse($openResponse, $partuploadResponses);
     }
 }

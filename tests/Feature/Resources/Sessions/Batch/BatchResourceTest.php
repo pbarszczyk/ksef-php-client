@@ -178,11 +178,17 @@ test('create offline invoices and send them', function (PrivateKeyType $privateK
     }
 
     /** @var object{referenceNumber: string} $openResponse */
-    $openResponse = $client->sessions()->batch()->openAndSend([
+    $openAndSendResponse = $client->sessions()->batch()->openAndSend([
         'formCode' => 'FA (3)',
         'faktury' => $faktury,
         'offlineMode' => true
-    ])->object();
+    ]);
+
+    $openResponse = $openAndSendResponse->object();
+
+    foreach ($openAndSendResponse->partUploadResponses as $partUploadResponse) {
+        expect($partUploadResponse->status())->toBe(201);
+    }
 
     $client->sessions()->batch()->close([
         'referenceNumber' => $openResponse->referenceNumber
