@@ -7,9 +7,7 @@ namespace N1ebieski\KSEFClient\Resources\Invoices;
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Invoices\Exports\ExportsResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Invoices\InvoicesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Invoices\Query\QueryResourceInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Invoices\Download\DownloadHandler;
 use N1ebieski\KSEFClient\Requests\Invoices\Download\DownloadRequest;
@@ -40,7 +38,7 @@ final class InvoicesResource extends AbstractResource implements InvoicesResourc
         }
     }
 
-    public function query(): QueryResourceInterface
+    public function query(): QueryResource
     {
         try {
             return new QueryResource($this->client, $this->exceptionHandler);
@@ -49,7 +47,7 @@ final class InvoicesResource extends AbstractResource implements InvoicesResourc
         }
     }
 
-    public function exports(): ExportsResourceInterface
+    public function exports(): ExportsResource
     {
         try {
             return new ExportsResource($this->client, $this->config, $this->exceptionHandler);

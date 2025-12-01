@@ -93,7 +93,7 @@ final class HttpClient implements HttpClientInterface
         return $clientRequest;
     }
 
-    public function sendRequest(Request $request): ResponseInterface
+    public function sendRequest(Request $request): Response
     {
         $clientRequest = $this->createClientRequest($request);
 

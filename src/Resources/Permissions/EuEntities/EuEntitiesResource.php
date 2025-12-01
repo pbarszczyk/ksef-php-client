@@ -7,7 +7,6 @@ namespace N1ebieski\KSEFClient\Resources\Permissions\EuEntities;
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\EuEntities\Administration\AdministrationResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\EuEntities\EuEntitiesResourceInterface;
 use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Grants\GrantsHandler;
 use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Grants\GrantsRequest;
@@ -23,7 +22,7 @@ final class EuEntitiesResource extends AbstractResource implements EuEntitiesRes
     ) {
     }
 
-    public function administration(): AdministrationResourceInterface
+    public function administration(): AdministrationResource
     {
         try {
             return new AdministrationResource($this->client, $this->exceptionHandler);

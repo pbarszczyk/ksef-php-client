@@ -9,16 +9,7 @@ use DateTimeInterface;
 use Exception;
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Auth\AuthResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Certificates\CertificatesResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\ClientResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Invoices\InvoicesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Limits\LimitsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\PermissionsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Security\SecurityResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Sessions\SessionsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Testdata\TestdataResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Tokens\TokensResourceInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Auth\Token\Refresh\RefreshHandler;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
@@ -125,7 +116,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function auth(): AuthResourceInterface
+    public function auth(): AuthResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -136,7 +127,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function limits(): LimitsResourceInterface
+    public function limits(): LimitsResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -147,7 +138,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function security(): SecurityResourceInterface
+    public function security(): SecurityResource
     {
         try {
             return new SecurityResource($this->client, $this->exceptionHandler);
@@ -156,7 +147,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function sessions(): SessionsResourceInterface
+    public function sessions(): SessionsResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -167,7 +158,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function invoices(): InvoicesResourceInterface
+    public function invoices(): InvoicesResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -178,7 +169,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function permissions(): PermissionsResourceInterface
+    public function permissions(): PermissionsResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -189,7 +180,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function certificates(): CertificatesResourceInterface
+    public function certificates(): CertificatesResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -200,7 +191,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function tokens(): TokensResourceInterface
+    public function tokens(): TokensResource
     {
         try {
             $this->refreshTokenIfExpired();
@@ -211,7 +202,7 @@ final class ClientResource extends AbstractResource implements ClientResourceInt
         }
     }
 
-    public function testdata(): TestdataResourceInterface
+    public function testdata(): TestdataResource
     {
         try {
             return new TestdataResource($this->client, $this->exceptionHandler);

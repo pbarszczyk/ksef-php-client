@@ -6,9 +6,7 @@ namespace N1ebieski\KSEFClient\Resources\Testdata\Limits;
 
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Testdata\Limits\Context\ContextResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Testdata\Limits\LimitsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Testdata\Limits\Subject\SubjectResourceInterface;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Testdata\Limits\Context\ContextResource;
 use N1ebieski\KSEFClient\Resources\Testdata\Limits\Subject\SubjectResource;
@@ -22,7 +20,7 @@ final class LimitsResource extends AbstractResource implements LimitsResourceInt
     ) {
     }
 
-    public function context(): ContextResourceInterface
+    public function context(): ContextResource
     {
         try {
             return new ContextResource($this->client, $this->exceptionHandler);
@@ -31,7 +29,7 @@ final class LimitsResource extends AbstractResource implements LimitsResourceInt
         }
     }
 
-    public function subject(): SubjectResourceInterface
+    public function subject(): SubjectResource
     {
         try {
             return new SubjectResource($this->client, $this->exceptionHandler);

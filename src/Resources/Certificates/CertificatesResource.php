@@ -8,7 +8,6 @@ use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Certificates\CertificatesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Certificates\Enrollments\EnrollmentsResourceInterface;
 use N1ebieski\KSEFClient\Requests\Certificates\Limits\LimitsHandler;
 use N1ebieski\KSEFClient\Requests\Certificates\Query\QueryHandler;
 use N1ebieski\KSEFClient\Requests\Certificates\Query\QueryRequest;
@@ -37,7 +36,7 @@ final class CertificatesResource extends AbstractResource implements Certificate
         }
     }
 
-    public function enrollments(): EnrollmentsResourceInterface
+    public function enrollments(): EnrollmentsResource
     {
         try {
             return new EnrollmentsResource($this->client, $this->exceptionHandler);

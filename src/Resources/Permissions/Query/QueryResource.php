@@ -6,7 +6,6 @@ namespace N1ebieski\KSEFClient\Resources\Permissions\Query;
 
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Query\Personal\PersonalResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Query\QueryResourceInterface;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Query\Personal\PersonalResource;
@@ -20,7 +19,7 @@ final class QueryResource extends AbstractResource implements QueryResourceInter
     ) {
     }
 
-    public function personal(): PersonalResourceInterface
+    public function personal(): PersonalResource
     {
         try {
             return new PersonalResource($this->client, $this->exceptionHandler);

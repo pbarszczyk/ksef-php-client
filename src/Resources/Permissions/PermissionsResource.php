@@ -6,16 +6,7 @@ namespace N1ebieski\KSEFClient\Resources\Permissions;
 
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Authorizations\AuthorizationsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Common\CommonResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Entities\EntitiesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\EuEntities\EuEntitiesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Indirect\IndirectResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Operations\OperationsResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Permissions\PermissionsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Persons\PersonsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Query\QueryResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Permissions\Subunits\SubunitsResourceInterface;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Authorizations\AuthorizationsResource;
 use N1ebieski\KSEFClient\Resources\Permissions\Common\CommonResource;
@@ -36,7 +27,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
     ) {
     }
 
-    public function common(): CommonResourceInterface
+    public function common(): CommonResource
     {
         try {
             return new CommonResource($this->client, $this->exceptionHandler);
@@ -45,7 +36,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function persons(): PersonsResourceInterface
+    public function persons(): PersonsResource
     {
         try {
             return new PersonsResource($this->client, $this->exceptionHandler);
@@ -54,7 +45,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function entities(): EntitiesResourceInterface
+    public function entities(): EntitiesResource
     {
         try {
             return new EntitiesResource($this->client, $this->exceptionHandler);
@@ -63,7 +54,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function authorizations(): AuthorizationsResourceInterface
+    public function authorizations(): AuthorizationsResource
     {
         try {
             return new AuthorizationsResource($this->client, $this->exceptionHandler);
@@ -72,7 +63,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function indirect(): IndirectResourceInterface
+    public function indirect(): IndirectResource
     {
         try {
             return new IndirectResource($this->client, $this->exceptionHandler);
@@ -81,7 +72,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function subunits(): SubunitsResourceInterface
+    public function subunits(): SubunitsResource
     {
         try {
             return new SubunitsResource($this->client, $this->exceptionHandler);
@@ -90,7 +81,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function euEntities(): EuEntitiesResourceInterface
+    public function euEntities(): EuEntitiesResource
     {
         try {
             return new EuEntitiesResource($this->client, $this->exceptionHandler);
@@ -99,7 +90,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function operations(): OperationsResourceInterface
+    public function operations(): OperationsResource
     {
         try {
             return new OperationsResource($this->client, $this->exceptionHandler);
@@ -108,7 +99,7 @@ final class PermissionsResource extends AbstractResource implements PermissionsR
         }
     }
 
-    public function query(): QueryResourceInterface
+    public function query(): QueryResource
     {
         try {
             return new QueryResource($this->client, $this->exceptionHandler);

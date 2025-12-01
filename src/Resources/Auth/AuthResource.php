@@ -10,8 +10,6 @@ use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Auth\AuthResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Auth\Sessions\SessionsResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Auth\Token\TokenResourceInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Auth\Challenge\ChallengeHandler;
 use N1ebieski\KSEFClient\Requests\Auth\KsefToken\KsefTokenHandler;
@@ -87,7 +85,7 @@ final class AuthResource extends AbstractResource implements AuthResourceInterfa
         }
     }
 
-    public function token(): TokenResourceInterface
+    public function token(): TokenResource
     {
         try {
             return new TokenResource($this->client, $this->config, $this->exceptionHandler);
@@ -96,7 +94,7 @@ final class AuthResource extends AbstractResource implements AuthResourceInterfa
         }
     }
 
-    public function sessions(): SessionsResourceInterface
+    public function sessions(): SessionsResource
     {
         try {
             return new SessionsResource($this->client, $this->exceptionHandler);

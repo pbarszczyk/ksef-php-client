@@ -7,9 +7,6 @@ namespace N1ebieski\KSEFClient\Resources\Sessions;
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Sessions\Batch\BatchResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Sessions\Invoices\InvoicesResourceInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Sessions\Online\OnlineResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Sessions\SessionsResourceInterface;
 use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\Requests\Sessions\List\ListHandler;
@@ -35,7 +32,7 @@ final class SessionsResource extends AbstractResource implements SessionsResourc
     ) {
     }
 
-    public function online(): OnlineResourceInterface
+    public function online(): OnlineResource
     {
         try {
             return new OnlineResource($this->client, $this->config, $this->exceptionHandler, $this->logger);
@@ -44,7 +41,7 @@ final class SessionsResource extends AbstractResource implements SessionsResourc
         }
     }
 
-    public function batch(): BatchResourceInterface
+    public function batch(): BatchResource
     {
         try {
             return new BatchResource($this->client, $this->config, $this->exceptionHandler, $this->logger);
@@ -79,7 +76,7 @@ final class SessionsResource extends AbstractResource implements SessionsResourc
         }
     }
 
-    public function invoices(): InvoicesResourceInterface
+    public function invoices(): InvoicesResource
     {
         try {
             return new InvoicesResource($this->client, $this->exceptionHandler);

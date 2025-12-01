@@ -6,7 +6,6 @@ namespace N1ebieski\KSEFClient\Resources\Testdata\Limits\Subject;
 
 use N1ebieski\KSEFClient\Contracts\Exception\ExceptionHandlerInterface;
 use N1ebieski\KSEFClient\Contracts\HttpClient\HttpClientInterface;
-use N1ebieski\KSEFClient\Contracts\Resources\Testdata\Limits\Subject\Certificate\CertificateResourceInterface;
 use N1ebieski\KSEFClient\Contracts\Resources\Testdata\Limits\Subject\SubjectResourceInterface;
 use N1ebieski\KSEFClient\Resources\AbstractResource;
 use N1ebieski\KSEFClient\Resources\Testdata\Limits\Subject\Certificate\CertificateResource;
@@ -20,7 +19,7 @@ final class SubjectResource extends AbstractResource implements SubjectResourceI
     ) {
     }
 
-    public function certificate(): CertificateResourceInterface
+    public function certificate(): CertificateResource
     {
         try {
             return new CertificateResource($this->client, $this->exceptionHandler);
