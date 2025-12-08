@@ -1491,7 +1491,6 @@ use N1ebieski\KSEFClient\DTOs\Requests\Sessions\Faktura;
 use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
-use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
 use N1ebieski\KSEFClient\ValueObjects\Mode;
 use N1ebieski\KSEFClient\ValueObjects\Requests\KsefNumber;
 
@@ -1515,12 +1514,12 @@ $fakturaFixture = (new FakturaSprzedazyTowaruFixture())
     ->withNip($nip)
     ->withTodayDate();
 
-$fixture = (new SendRequestFixture())->withFakturaFixture($fakturaFixture);
+$faktura = Faktura::from($fakturaFixture->data);
 
 // For sending invoice as DTO use SendRequest or array
 // For sending invoice as XML use SendXmlRequest
 $sendResponse = $client->sessions()->online()->send([
-    ...$fixture->data,
+    'faktura' => $faktura,
     'referenceNumber' => $openResponse->referenceNumber,
 ])->object();
 
@@ -1550,8 +1549,6 @@ $upo = $client->sessions()->invoices()->upo([
     'referenceNumber' => $openResponse->referenceNumber,
     'invoiceReferenceNumber' => $sendResponse->referenceNumber
 ])->body();
-
-$faktura = Faktura::from($fakturaFixture->data);
 
 $generateQRCodesHandler = new GenerateQRCodesHandler(
     qrCodeBuilder: (new QrCodeBuilder())

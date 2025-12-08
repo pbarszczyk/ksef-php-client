@@ -21,7 +21,6 @@ use N1ebieski\KSEFClient\Factories\CSRFactory;
 use N1ebieski\KSEFClient\Factories\EncryptionKeyFactory;
 use N1ebieski\KSEFClient\Support\Utility;
 use N1ebieski\KSEFClient\Testing\Fixtures\DTOs\Requests\Sessions\FakturaSprzedazyTowaruFixture;
-use N1ebieski\KSEFClient\Testing\Fixtures\Requests\Sessions\Online\Send\SendRequestFixture;
 use N1ebieski\KSEFClient\Tests\Feature\AbstractTestCase;
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
 use N1ebieski\KSEFClient\ValueObjects\CertificateSerialNumber;
@@ -59,11 +58,11 @@ test('send an invoice, check for UPO and generate QR code', function (): void {
         ->withTodayDate()
         ->withRandomInvoiceNumber();
 
-    $fixture = (new SendRequestFixture())->withFakturaFixture($fakturaFixture);
+    $faktura = Faktura::from($fakturaFixture->data);
 
     /** @var object{referenceNumber: string} $sendResponse */
     $sendResponse = $client->sessions()->online()->send([
-        ...$fixture->data,
+        'faktura' => $faktura,
         'referenceNumber' => $openResponse->referenceNumber,
     ])->object();
 
@@ -95,8 +94,6 @@ test('send an invoice, check for UPO and generate QR code', function (): void {
 
     expect($statusResponse)->toHaveProperty('ksefNumber');
     expect($statusResponse->ksefNumber)->toBeString();
-
-    $faktura = Faktura::from($fakturaFixture->data);
 
     $generateQRCodesHandler = new GenerateQRCodesHandler(
         qrCodeBuilder: (new QrCodeBuilder())
