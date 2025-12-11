@@ -29,7 +29,7 @@ final class DoRozliczeniaGroup extends AbstractDTO implements DomSerializableInt
         $dom->appendChild($doRozliczeniaGroup);
 
         $doRozliczenia = $dom->createElementNS((string) XmlNamespace::Fa3->value, 'DoRozliczenia');
-        $doRozliczenia->appendChild($dom->createTextNode((string) $this->doRozliczenia->value));
+        $doRozliczenia->appendChild($dom->createTextNode($this->doRozliczenia->value));
 
         $doRozliczeniaGroup->appendChild($doRozliczenia);
 

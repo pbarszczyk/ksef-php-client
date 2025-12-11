@@ -29,7 +29,7 @@ final class DoZaplatyGroup extends AbstractDTO implements DomSerializableInterfa
         $dom->appendChild($doZaplatyGroup);
 
         $doZaplaty = $dom->createElementNS((string) XmlNamespace::Fa3->value, 'DoZaplaty');
-        $doZaplaty->appendChild($dom->createTextNode((string) $this->doZaplaty->value));
+        $doZaplaty->appendChild($dom->createTextNode($this->doZaplaty->value));
 
         $doZaplatyGroup->appendChild($doZaplaty);
 

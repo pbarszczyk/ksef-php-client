@@ -13,7 +13,6 @@ return \Rector\Config\RectorConfig::configure()
     ->withSkip([
         \Rector\Carbon\Rector\MethodCall\DateTimeMethodCallToCarbonRector::class,
         \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
-        \Rector\Php81\Rector\Array_\FirstClassCallableRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
         \Rector\Carbon\Rector\New_\DateTimeInstanceToCarbonRector::class,

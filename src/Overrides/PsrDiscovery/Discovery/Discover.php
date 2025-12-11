@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Overrides\PsrDiscovery\Discovery;
 
+use Psr\Log\LoggerInterface;
 use Composer\InstalledVersions as Composer;
 use Composer\Semver\VersionParser as Version;
 use PsrDiscovery\Collections\CandidatesCollection;
@@ -23,7 +24,7 @@ final class Discover
     /**
      * @var string
      */
-    private const PSR_LOG = '\Psr\Log\LoggerInterface';
+    private const PSR_LOG = LoggerInterface::class;
 
     /**
      * @var CandidatesCollection[]

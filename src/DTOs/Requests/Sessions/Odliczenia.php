@@ -32,7 +32,7 @@ final class Odliczenia extends AbstractDTO implements DomSerializableInterface
         $dom->appendChild($odliczenia);
 
         $kwota = $dom->createElementNS((string) XmlNamespace::Fa3->value, 'Kwota');
-        $kwota->appendChild($dom->createTextNode((string) $this->kwota->value));
+        $kwota->appendChild($dom->createTextNode($this->kwota->value));
 
         $odliczenia->appendChild($kwota);
 
