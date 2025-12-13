@@ -40,6 +40,9 @@ jobs:
           extensions: json, dom, curl, libxml, mbstring
           coverage: none
 
+      - name: Setup var folder
+        run: mkdir -p ./var/zip
+
       - name: Setup Certificates
         run: |
             mkdir -p ./scripts
