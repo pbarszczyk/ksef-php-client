@@ -17,7 +17,9 @@ final class QRCode extends AbstractValueObject implements Stringable
 
     public function __toString(): string
     {
-        return $this->raw;
+        $base64 = base64_encode($this->raw);
+
+        return 'data:image/png;base64,' . $base64;
     }
 
     public static function from(string $raw, Url | string $url): self
