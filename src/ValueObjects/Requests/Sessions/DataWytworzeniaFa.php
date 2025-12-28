@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\ValueObjects\Requests\Sessions;
 
-use DateTimeInterface;
 use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use N1ebieski\KSEFClient\Contracts\ValueAwareInterface;
 use N1ebieski\KSEFClient\Support\AbstractValueObject;
+use N1ebieski\KSEFClient\Validator\Rules\Date\TimezoneRule;
+use N1ebieski\KSEFClient\Validator\Validator;
 use Stringable;
 
 final class DataWytworzeniaFa extends AbstractValueObject implements ValueAwareInterface, Stringable
@@ -17,8 +20,12 @@ final class DataWytworzeniaFa extends AbstractValueObject implements ValueAwareI
     public function __construct(DateTimeInterface | string $value)
     {
         if ($value instanceof DateTimeInterface === false) {
-            $value = new DateTimeImmutable($value);
+            $value = new DateTimeImmutable($value, new DateTimeZone('UTC'));
         }
+
+        Validator::validate($value, [
+            new TimezoneRule(['UTC', 'Z']),
+        ]);
 
         $this->value = $value;
     }
