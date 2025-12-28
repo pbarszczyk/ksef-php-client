@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace N1ebieski\KSEFClient\DTOs\Requests\Sessions;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use DOMDocument;
 use N1ebieski\KSEFClient\Contracts\DomSerializableInterface;
 use N1ebieski\KSEFClient\Support\AbstractDTO;
@@ -22,7 +23,7 @@ final class Naglowek extends AbstractDTO implements DomSerializableInterface
      */
     public function __construct(
         public readonly FormCode $wariantFormularza = FormCode::Fa3,
-        public readonly DataWytworzeniaFa $dataWytworzeniaFa = new DataWytworzeniaFa(new DateTimeImmutable()),
+        public readonly DataWytworzeniaFa $dataWytworzeniaFa = new DataWytworzeniaFa(new DateTimeImmutable('now', new DateTimeZone('UTC'))),
         public readonly Optional | SystemInfo $systemInfo = new Optional(),
     ) {
     }
