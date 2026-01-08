@@ -47,9 +47,11 @@ uses(FeatureAbstractTestCase::class)
             ->withMode(Mode::Test)
             ->build();
 
-        $client->testdata()->person()->remove([
-            'nip' => $_ENV['NIP_1'],
-        ]);
+        foreach (['NIP_1', 'NIP_2', 'NIP_3'] as $nip) {
+            $client->testdata()->subject()->remove([
+                'nip' => $_ENV[$nip],
+            ]);
+        }
     })
     ->in('Feature');
 

@@ -33,18 +33,6 @@ beforeAll(function (): void {
     }
 });
 
-afterAll(function (): void {
-    $client = (new ClientBuilder())
-        ->withMode(Mode::Test)
-        ->build();
-
-    foreach (['NIP_2', 'NIP_3'] as $nip) {
-        $client->testdata()->subject()->remove([
-            'nip' => $_ENV[$nip],
-        ]);
-    }
-});
-
 test('send invoice as NIP_2 when NIP_2 gave InvoiceWrite permission', function (): void {
     /** @var AbstractTestCase $this */
     /** @var array<string, string> $_ENV */
@@ -135,7 +123,7 @@ test('send invoice as NIP_2 when NIP_2 gave InvoiceWrite permission', function (
         }
     });
 
-    /** @var object{permissions: array<int, object{id: string}>} $queryResponse */
+    /** @var object{permissions: array<int, object{id: string, permissionScope: string}>} $queryResponse */
     $queryResponse = $clientNip1->permissions()->query()->personal()->grants([
         'contextIdentifierGroup' => [
             'nip' => $_ENV['NIP_2']
@@ -146,18 +134,20 @@ test('send invoice as NIP_2 when NIP_2 gave InvoiceWrite permission', function (
 
     expect($queryResponse->permissions)->toBeArray()->not->toBeEmpty();
 
-    $permission = array_find(
+    $permissions = array_filter(
         $queryResponse->permissions,
-        fn (object $permission) => $permission->permissionScope === PersonalPermissionType::InvoiceWrite->value
+        fn (object $permission): bool => $permission->permissionScope === PersonalPermissionType::InvoiceWrite->value
     );
 
-    expect($permission)->toHaveProperty('id');
+    expect($permissions)->toBeArray()->not->toBeEmpty();
 
-    expect($permission->id)->toBeString();
+    expect($permissions[0])->toHaveProperty('id');
+
+    expect($permissions[0]->id)->toBeString();
 
     /** @var object{referenceNumber: string} $revokePermissionResponse */
     $revokePermissionResponse = $clientNip2->permissions()->common()->revoke([
-        'permissionId' => $permission->id
+        'permissionId' => $permissions[0]->id
     ])->object();
 
     Utility::retry(function (int $attempts) use ($clientNip2, $revokePermissionResponse) {

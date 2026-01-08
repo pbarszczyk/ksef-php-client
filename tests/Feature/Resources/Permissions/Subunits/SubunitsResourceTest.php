@@ -31,16 +31,6 @@ beforeAll(function (): void {
     }
 });
 
-afterAll(function (): void {
-    $client = (new ClientBuilder())
-        ->withMode(Mode::Test)
-        ->build();
-
-    $client->testdata()->person()->remove([
-        'nip' => $_ENV['NIP_2'],
-    ]);
-});
-
 test('create InternalId for person', function (): void {
     /** @var AbstractTestCase $this */
     /** @var array<string, string> $_ENV */
@@ -99,7 +89,7 @@ test('create InternalId for person', function (): void {
     expect($refreshToken)->toBeInstanceOf(RefreshToken::class);
     expect($refreshToken?->validUntil)->toBeGreaterThan(new DateTimeImmutable('+6 days'));
 
-    /** @var object{permissions: array<int, object{id: string}>} $queryResponse */
+    /** @var object{permissions: array<int, object{id: string, permissionScope: string}>} $queryResponse */
     $queryResponse = $clientNip1->permissions()->query()->subunits()->grants([
         'subunitIdentifierGroup' => [
             'internalId' => $internalId
@@ -110,18 +100,20 @@ test('create InternalId for person', function (): void {
 
     expect($queryResponse->permissions)->toBeArray()->not->toBeEmpty();
 
-    $permission = array_find(
+    $permissions = array_filter(
         $queryResponse->permissions,
-        fn (object $permission) => $permission->permissionScope === PersonalPermissionType::CredentialsManage->value
+        fn (object $permission): bool => $permission->permissionScope === PersonalPermissionType::CredentialsManage->value
     );
 
-    expect($permission)->toHaveProperty('id');
+    expect($permissions)->toBeArray()->not->toBeEmpty();
 
-    expect($permission->id)->toBeString();
+    expect($permissions[0])->toHaveProperty('id');
+
+    expect($permissions[0]->id)->toBeString();
 
     /** @var object{referenceNumber: string} $revokePermissionResponse */
     $revokePermissionResponse = $clientNip1->permissions()->common()->revoke([
-        'permissionId' => $permission->id
+        'permissionId' => $permissions[0]->id
     ])->object();
 
     Utility::retry(function (int $attempts) use ($clientNip1, $revokePermissionResponse) {
