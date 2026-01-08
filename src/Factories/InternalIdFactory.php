@@ -48,8 +48,6 @@ final class InternalIdFactory extends AbstractFactory
             $sum += $digit * $weight;
         }
 
-        $checksum = $sum % 10;
-
-        return $checksum;
+        return $sum % 10;
     }
 }
