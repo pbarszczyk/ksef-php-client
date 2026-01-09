@@ -15,7 +15,7 @@ final class CertificatePath extends AbstractValueObject
 
     public function __construct(
         string $path,
-		#[\SensitiveParameter] public readonly ?string $passphrase = null
+        #[\SensitiveParameter] public readonly ?string $passphrase = null
     ) {
         Validator::validate($path, [
             new ExistsRule(),
