@@ -51,6 +51,7 @@ test('valid response', function (InitRequestFixture $requestFixture, InitRespons
 })->with('validResponseProvider');
 
 test('invalid response without EncryptedKey', function (): void {
+    /** @var AbstractTestCase $this */
     $requestFixture = new InitRequestFixture();
     $responseFixture = new InitResponseFixture();
 

@@ -131,6 +131,7 @@ test('auto authorization via KSEF certificate path .p12', function (PrivateKeyTy
 })->with('privateKeyTypeProvider');
 
 test('auto authorization via certificate .p12', function (): void {
+    /** @var AbstractTestCase $this */
     /** @var array<string, string> $_ENV */
     /** @var string $pkcs12 */
     $pkcs12 = file_get_contents(Utility::basePath($_ENV['CERTIFICATE_PATH_1']));

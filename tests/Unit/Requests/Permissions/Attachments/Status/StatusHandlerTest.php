@@ -39,6 +39,7 @@ test('invalid response', function (): void {
     $responseFixture = new ErrorResponseFixture();
 
     expect(function () use ($responseFixture): void {
+        /** @var AbstractTestCase $this */
         $clientStub = $this->createClientStub($responseFixture);
 
         $clientStub->permissions()->attachments()->status();

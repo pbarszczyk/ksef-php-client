@@ -9,4 +9,8 @@ namespace N1ebieski\KSEFClient\Contracts;
  */
 interface ContextInterface
 {
+    /**
+     * @return object|array<string, mixed>|null
+     */
+    public function getContext(): object|array|null;
 }

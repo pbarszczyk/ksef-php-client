@@ -132,6 +132,7 @@ test('send invoice as NIP_2 when NIP_2 gave InvoiceWrite permission', function (
 
     expect($queryResponse)->toHaveProperty('permissions');
 
+    // @phpstan-ignore-next-line
     expect($queryResponse->permissions)->toBeArray()->not->toBeEmpty();
 
     $permissions = array_filter(
@@ -139,6 +140,7 @@ test('send invoice as NIP_2 when NIP_2 gave InvoiceWrite permission', function (
         fn (object $permission): bool => $permission->permissionScope === PersonalPermissionType::InvoiceWrite->value
     );
 
+    // @phpstan-ignore-next-line
     expect($permissions)->toBeArray()->not->toBeEmpty();
 
     expect($permissions[0])->toHaveProperty('id');
