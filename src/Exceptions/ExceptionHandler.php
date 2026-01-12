@@ -26,7 +26,7 @@ final class ExceptionHandler implements ExceptionHandlerInterface
             $context['exception'] = $throwable;
 
             if ($throwable instanceof ContextInterface) {
-                $context['context'] = $throwable->context;
+                $context['context'] = $throwable->getContext();
             }
 
             $this->logger->error($message, $context);

@@ -65,6 +65,7 @@ test('send an invoice, check if it is in the list', function (): void {
     ])->object();
 
     expect($listResponse)->toHaveProperty('invoices');
+    // @phpstan-ignore-next-line
     expect($listResponse->invoices)->toBeArray()->not->toBeEmpty();
 
     $matches = array_filter(

@@ -34,4 +34,9 @@ abstract class AbstractException extends Exception implements ArrayableInterface
             'context' => $this->context,
         ], $keyType, $only);
     }
+
+    public function getContext(): object|array|null
+    {
+        return $this->context;
+    }
 }

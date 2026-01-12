@@ -98,6 +98,7 @@ test('create InternalId for person', function (): void {
 
     expect($queryResponse)->toHaveProperty('permissions');
 
+    // @phpstan-ignore-next-line
     expect($queryResponse->permissions)->toBeArray()->not->toBeEmpty();
 
     $permissions = array_filter(
@@ -105,6 +106,7 @@ test('create InternalId for person', function (): void {
         fn (object $permission): bool => $permission->permissionScope === PersonalPermissionType::CredentialsManage->value
     );
 
+    // @phpstan-ignore-next-line
     expect($permissions)->toBeArray()->not->toBeEmpty();
 
     expect($permissions[0])->toHaveProperty('id');
