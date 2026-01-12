@@ -1,6 +1,9 @@
 /.playground
 /.vscode
+/.idea
 /.phpunit.cache
+/.rector.cache
+/.phpstan.cache
 /scripts
 /config
 /vendor
