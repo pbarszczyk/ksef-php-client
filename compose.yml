@@ -1,0 +1,12 @@
+services:
+  php:
+    image: ksef:php-8.4
+    build: docker
+    user: ksef
+    working_dir: /srv
+    volumes:
+      - ./:/srv
+      - composerCache:/home/ksef/.composer # cache pobranych bibliotek
+
+volumes:
+  composerCache:
