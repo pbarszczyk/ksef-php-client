@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient;
 
-use SensitiveParameter;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Http\Discovery\Psr18ClientDiscovery;
@@ -55,6 +54,7 @@ use Psr\Http\Client\ClientInterface as BaseClientInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use RuntimeException;
+use SensitiveParameter;
 use Throwable;
 
 final class ClientBuilder
@@ -111,7 +111,6 @@ final class ClientBuilder
 
         return $this;
     }
-
 
     public function withEncryptionKey(#[SensitiveParameter] EncryptionKey | string $encryptionKey, #[SensitiveParameter] ?string $iv = null): self
     {
