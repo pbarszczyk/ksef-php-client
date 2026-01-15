@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace N1ebieski\KSEFClient\Factories;
 
-use SensitiveParameter;
 use Deprecated;
 use N1ebieski\KSEFClient\ValueObjects\Certificate;
 use N1ebieski\KSEFClient\ValueObjects\CertificatePath;
 use OpenSSLAsymmetricKey;
 use RuntimeException;
+use SensitiveParameter;
 
 final class CertificateFactory extends AbstractFactory
 {
@@ -48,7 +48,7 @@ final class CertificateFactory extends AbstractFactory
             );
         }
 
-        /** @var array{issuer: array<string, string>, serialNumberHex: string}|false $info */
+        /** @var array{issuer: array<string, string>, serialNumberHex: string, extensions: array{keyUsage: string}}|false $info */
         $info = openssl_x509_parse($certificate);
 
         if ($info === false) {
