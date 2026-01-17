@@ -11,7 +11,7 @@ $dotenv->load();
 $argv = $_SERVER['argv'];
 $command = $argv[1] ?? null;
 
-if ($command === false) {
+if ($command === null) {
     echo "Usage: php bin/console <command> [options]\n";
 
     exit();

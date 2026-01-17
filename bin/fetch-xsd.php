@@ -161,7 +161,7 @@ function getImports(string $content): array
                 continue;
             }
 
-            array_push($imports, $schemaLocation);
+            $imports[] = $schemaLocation;
         }
     }
 
