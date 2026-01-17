@@ -94,7 +94,7 @@ function updateSchemaLocations(string $content, array $locations): string
 
         $schemaLocation = $node->getAttribute('schemaLocation');
 
-        if ( ! isset($locations[$schemaLocation])) {
+        if ( ! array_key_exists($schemaLocation, $locations)) {
             continue;
         }
 
