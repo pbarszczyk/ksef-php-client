@@ -56,7 +56,7 @@ final class GenerateQRCodesHandler extends AbstractHandler
         $code2 = null;
 
         if (
-            ! $action->ksefNumber instanceof KsefNumber
+            ! ($action->ksefNumber instanceof KsefNumber)
             && $action->certificate instanceof Certificate
             && $action->certificateSerialNumber instanceof CertificateSerialNumber
             && $action->contextIdentifierGroup instanceof ContextIdentifierGroup
