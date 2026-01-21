@@ -5,7 +5,7 @@
 
 > **This package is not production ready yet!**
 
-PHP API client that allows you to interact with the [KSEF API](https://ksef-test.mf.gov.pl/docs/v2/index.html) Krajowy System e-Faktur
+PHP API client that allows you to interact with the [KSEF API](https://api-test.ksef.mf.gov.pl/docs/v2/index.html) Krajowy System e-Faktur
 
 Main features:
 
@@ -185,7 +185,7 @@ $client = (new ClientBuilder())
     ->withKsefToken($_ENV['KSEF_TOKEN']) // Required for API Token authorization. Optional otherwise
     ->withCertificate($_ENV['CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE']) // Required .p12 contents for Certificate authorization. Optional otherwise
     ->withCertificatePath($_ENV['PATH_TO_CERTIFICATE'], $_ENV['CERTIFICATE_PASSPHRASE']) // Required path to .p12 file for Certificate authorization. Optional otherwise
-    ->withVerifyCertificateChain(true) // Optional. Explanation https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1xades-signature/post
+    ->withVerifyCertificateChain(true) // Optional. Explanation https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1xades-signature/post
     ->withEncryptionKey(EncryptionKeyFactory::makeRandom()) // Required for invoice resources. Remember to save this value!
     ->withIdentifier('NIP_NUMBER') // Required for authorization. Optional otherwise
     ->withAsyncMaxConcurrency(8) // Optional. Maximum concurrent send operations during asynchronous sending
@@ -340,7 +340,7 @@ $client = $client
         <h4>Auth Challenge</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1challenge/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1challenge/post
 
 ```php
 $response = $client->auth()->challenge()->object();
@@ -352,7 +352,7 @@ $response = $client->auth()->challenge()->object();
         <h4>Auth Xades Signature</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1xades-signature/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1xades-signature/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Auth\XadesSignature\XadesSignatureRequest;
@@ -378,7 +378,7 @@ $response = $client->auth()->xadesSignature(
         <h4>Auth Status</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1%7BreferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1%7BreferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Auth\Status\StatusRequest;
@@ -396,7 +396,7 @@ $response = $client->auth()->status(
         <h5>Auth Token Redeem</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1token~1redeem/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1token~1redeem/post
 
 ```php
 $response = $client->auth()->token()->redeem()->object();
@@ -408,7 +408,7 @@ $response = $client->auth()->token()->redeem()->object();
         <h5>Auth Token Refresh</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1api~1v2~1auth~1token~1refresh/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Uzyskiwanie-dostepu/paths/~1auth~1token~1refresh/post
 
 ```php
 $response = $client->auth()->token()->refresh()->object();
@@ -422,7 +422,7 @@ $response = $client->auth()->token()->refresh()->object();
         <h5>Auth Sessions list</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1api~1v2~1auth~1sessions/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1auth~1sessions/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Auth\Sessions\List\ListRequest;
@@ -438,7 +438,7 @@ $response = $client->auth()->sessions()->list(
         <h5>Auth Sessions revoke current</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1api~1v2~1auth~1sessions~1current/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1auth~1sessions~1current/delete
 
 ```php
 $response = $client->auth()->sessions()->revokeCurrent()->status();
@@ -450,7 +450,7 @@ $response = $client->auth()->sessions()->revokeCurrent()->status();
         <h5>Auth Sessions revoke</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1api~1v2~1auth~1sessions~1%7BreferenceNumber%7D/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Aktywne-sesje/paths/~1auth~1sessions~1%7BreferenceNumber%7D/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Auth\Sessions\Revoke\RevokeRequest;
@@ -468,7 +468,7 @@ $response = $client->auth()->sessions()->revoke(
         <h4>Limits Context</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1context/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1limits~1context/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Limits\Context\ContextRequest;
@@ -484,7 +484,7 @@ $response = $client->limits()->context(
         <h4>Limits Subject</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1limits~1subject/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1limits~1subject/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Limits\Subject\SubjectRequest;
@@ -500,7 +500,7 @@ $response = $client->limits()->subject(
         <h3>Rate Limits</h3>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1rate-limits/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1rate-limits/get
 
 ```php
 $response = $client->rateLimits()->object();
@@ -514,7 +514,7 @@ $response = $client->rateLimits()->object();
         <h4>Security Public Key Certificates</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty-klucza-publicznego/paths/~1api~1v2~1security~1public-key-certificates/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty-klucza-publicznego/paths/~1security~1public-key-certificates/get
 
 ```php
 $response = $client->security()->publicKeyCertificates()->object();
@@ -528,7 +528,7 @@ $response = $client->security()->publicKeyCertificates()->object();
         <h4>Sessions List</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\List\ListRequest;
@@ -546,7 +546,7 @@ $response = $client->sessions()->list(
         <h5>Sessions Invoices List</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1invoices/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1invoices/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Invoices\List\ListRequest;
@@ -562,7 +562,7 @@ $response = $client->sessions()->invoices()->list(
         <h5>Sessions Invoices Failed</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1invoices~1failed/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1invoices~1failed/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Invoices\Failed\FailedRequest;
@@ -578,7 +578,7 @@ $response = $client->sessions()->invoices()->failed(
         <h5>Sessions Invoices Upo</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1invoices~1%7BinvoiceReferenceNumber%7D~1upo/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1invoices~1%7BinvoiceReferenceNumber%7D~1upo/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Invoices\Upo\UpoRequest;
@@ -594,7 +594,7 @@ $response = $client->sessions()->invoices()->upo(
         <h5>Sessions Invoices Ksef Upo</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1invoices~1ksef~1%7BksefNumber%7D~1upo/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1invoices~1ksef~1%7BksefNumber%7D~1upo/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Invoices\KsefUpo\KsefUpoRequest;
@@ -610,7 +610,7 @@ $response = $client->sessions()->invoices()->ksefUpo(
         <h5>Sessions Invoices Status</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1invoices~1%7BinvoiceReferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1invoices~1%7BinvoiceReferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Invoices\Status\StatusRequest;
@@ -628,7 +628,7 @@ $response = $client->sessions()->invoices()->status(
         <h5>Sessions Online Open</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1api~1v2~1sessions~1online/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1sessions~1online/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Online\Open\OpenRequest;
@@ -644,7 +644,7 @@ $response = $client->sessions()->online()->open(
         <h5>Sessions Online Close</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1api~1v2~1sessions~1online~1%7BreferenceNumber%7D~1close/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1sessions~1online~1%7BreferenceNumber%7D~1close/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Online\Close\CloseRequest;
@@ -660,7 +660,7 @@ $response = $client->sessions()->online()->close(
         <h5>Sessions Online Send invoices</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1api~1v2~1sessions~1online~1%7BreferenceNumber%7D~1invoices/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wysylka-interaktywna/paths/~1sessions~1online~1%7BreferenceNumber%7D~1invoices/post
 
 for DTO invoice:
 
@@ -690,7 +690,7 @@ $response = $client->sessions()->online()->send(
         <h5>Sessions Batch Open (and send multiple invoices)</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wysylka-wsadowa/paths/~1api~1v2~1sessions~1batch/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wysylka-wsadowa/paths/~1sessions~1batch/post
 
 for DTOs invoices:
 
@@ -728,7 +728,7 @@ $response = $client->sessions()->batch()->openAndSend(
         <h5>Sessions Batch Close</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wysylka-wsadowa/paths/~1api~1v2~1sessions~1batch~1%7BreferenceNumber%7D~1close/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wysylka-wsadowa/paths/~1sessions~1batch~1%7BreferenceNumber%7D~1close/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Batch\Close\CloseRequest;
@@ -744,7 +744,7 @@ $response = $client->sessions()->batch()->close(
         <h4>Sessions Status</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Status\StatusRequest;
@@ -760,7 +760,7 @@ $response = $client->sessions()->status(
         <h4>Sessions Upo</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1api~1v2~1sessions~1%7BreferenceNumber%7D~1upo~1%7BupoReferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Status-wysylki-i-UPO/paths/~1sessions~1%7BreferenceNumber%7D~1upo~1%7BupoReferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Sessions\Upo\UpoRequest;
@@ -778,7 +778,7 @@ $response = $client->sessions()->upo(
         <h4>Invoices Download</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1api~1v2~1invoices~1ksef~1%7BksefNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1invoices~1ksef~1%7BksefNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Invoices\Download\DownloadRequest;
@@ -796,7 +796,7 @@ $response = $client->invoices()->download(
         <h5>Invoices Query Metadata</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1api~1v2~1invoices~1query~1metadata/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1invoices~1query~1metadata/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Invoices\Query\Metadata\MetadataRequest;
@@ -814,7 +814,7 @@ $response = $client->invoices()->query()->metadata(
         <h5>Invoices Exports Init</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1api~1v2~1invoices~1exports/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1invoices~1exports/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Init\InitRequest;
@@ -830,7 +830,7 @@ $response = $client->invoices()->exports()->init(
         <h5>Invoices Exports Status</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1api~1v2~1invoices~1exports~1%7BoperationReferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Pobieranie-faktur/paths/~1invoices~1exports~1%7BoperationReferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Invoices\Exports\Status\StatusRequest;
@@ -850,7 +850,7 @@ $response = $client->invoices()->exports()->status(
         <h5>Permissions Persons Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1persons~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1persons~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Persons\Grants\GrantsRequest;
@@ -868,7 +868,7 @@ $response = $client->permissions()->persons()->grants(
         <h5>Permissions Entities Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1entities~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1entities~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Entities\Grants\GrantsRequest;
@@ -886,7 +886,7 @@ $response = $client->permissions()->entities()->grants(
         <h5>Permissions Authorizations Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1authorizations~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1authorizations~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Authorizations\Grants\GrantsRequest;
@@ -902,7 +902,7 @@ $response = $client->permissions()->authorizations()->grants(
         <h5>Permissions Authorizations Grants Revoke</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1api~1v2~1permissions~1authorizations~1grants~1%7BpermissionId%7D/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1permissions~1authorizations~1grants~1%7BpermissionId%7D/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Authorizations\Revoke\RevokeRequest;
@@ -920,7 +920,7 @@ $response = $client->permissions()->authorizations()->revoke(
         <h5>Permissions Indirect Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1indirect~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1indirect~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Indirect\Grants\GrantsRequest;
@@ -938,7 +938,7 @@ $response = $client->permissions()->indirect()->grants(
         <h5>Permissions Subunits Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1subunits~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1subunits~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Subunits\Grants\GrantsRequest;
@@ -956,7 +956,7 @@ $response = $client->permissions()->subunits()->grants(
         <h5>Permissions EuEntities Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1eu-entities~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1eu-entities~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Grants\GrantsRequest;
@@ -974,7 +974,7 @@ $response = $client->permissions()->euEntities()->grants(
         <h5>Permissions EuEntities Administration Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1api~1v2~1permissions~1eu-entities~1administration~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Nadawanie-uprawnien/paths/~1permissions~1eu-entities~1administration~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\EuEntities\Administration\Grants\GrantsRequest;
@@ -992,7 +992,7 @@ $response = $client->permissions()->euEntities()->administration()->grants(
         <h5>Permissions Common Grants Revoke</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1api~1v2~1permissions~1common~1grants~1%7BpermissionId%7D/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Odbieranie-uprawnien/paths/~1permissions~1common~1grants~1%7BpermissionId%7D/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Common\Revoke\RevokeRequest;
@@ -1012,7 +1012,7 @@ $response = $client->permissions()->common()->revoke(
         <h5>Permissions Query Personal Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wyszukiwanie-nadanych-uprawnien/paths/~1api~1v2~1permissions~1query~1personal~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wyszukiwanie-nadanych-uprawnien/paths/~1permissions~1query~1personal~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Query\Personal\Grants\GrantsRequest;
@@ -1030,7 +1030,7 @@ $response = $client->permissions()->query()->personal()->grants(
         <h5>Permissions Query Subunits Grants</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Wyszukiwanie-nadanych-uprawnien/paths/~1permissions~1query~1subunits~1grants/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Wyszukiwanie-nadanych-uprawnien/paths/~1permissions~1query~1subunits~1grants/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Query\Subunits\Grants\GrantsRequest;
@@ -1048,7 +1048,7 @@ $response = $client->permissions()->query()->subunits()->grants(
         <h5>Permissions Operations Status</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Operacje/paths/~1api~1v2~1permissions~1operations~1%7BreferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Operacje/paths/~1permissions~1operations~1%7BreferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Operations\Status\StatusRequest;
@@ -1066,7 +1066,7 @@ $response = $client->permissions()->operations()->status(
         <h5>Permissions Attachments Status</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Operacje/paths/~1api~1v2~1permissions~1attachments~1status/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Operacje/paths/~1permissions~1attachments~1status/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Permissions\Attachments\Status\StatusRequest;
@@ -1084,7 +1084,7 @@ $response = $client->permissions()->attachments()->status(
         <h4>Certificates Limits</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1limits/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1limits/get
 
 ```php
 $response = $client->certificates()->limits()->object();
@@ -1098,7 +1098,7 @@ $response = $client->certificates()->limits()->object();
         <h5>Certificates Enrollments Data</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1enrollments~1data/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1enrollments~1data/get
 
 ```php
 $response = $client->certificates()->enrollments()->data()->object();
@@ -1110,7 +1110,7 @@ $response = $client->certificates()->enrollments()->data()->object();
         <h5>Certificates Enrollments Send</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1enrollments/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1enrollments/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Certificates\Enrollments\Send\SendRequest;
@@ -1126,7 +1126,7 @@ $response = $client->certificates()->enrollments()->send(
         <h5>Certificates Enrollments Status</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1enrollments~1%7BreferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1enrollments~1%7BreferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Certificates\Enrollments\Status\StatusRequest;
@@ -1142,7 +1142,7 @@ $response = $client->certificates()->enrollments()->status(
         <h4>Certificates Retrieve</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1retrieve/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1retrieve/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Certificates\Retrieve\RetrieveRequest;
@@ -1158,7 +1158,7 @@ $response = $client->certificates()->retrieve(
         <h4>Certificates Revoke</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1%7BcertificateSerialNumber%7D~1revoke/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1%7BcertificateSerialNumber%7D~1revoke/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Certificates\Revoke\RevokeRequest;
@@ -1174,7 +1174,7 @@ $response = $client->certificates()->revoke(
         <h4>Certificates Query</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1query/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1query/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Certificates\Query\QueryRequest;
@@ -1192,7 +1192,7 @@ $response = $client->certificates()->query(
         <h4>Tokens Create</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1tokens/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Tokens\Create\CreateRequest;
@@ -1208,7 +1208,7 @@ $response = $client->tokens()->create(
         <h4>Tokens List</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1tokens/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Tokens\List\ListRequest;
@@ -1224,7 +1224,7 @@ $response = $client->tokens()->list(
         <h4>Tokens Status</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens~1%7BreferenceNumber%7D/get
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1tokens~1%7BreferenceNumber%7D/get
 
 ```php
 use N1ebieski\KSEFClient\Requests\Tokens\Status\StatusRequest;
@@ -1240,7 +1240,7 @@ $response = $client->tokens()->list(
         <h4>Tokens Revoke</h4>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1api~1v2~1tokens~1%7BreferenceNumber%7D/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Tokeny-KSeF/paths/~1tokens~1%7BreferenceNumber%7D/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Tokens\Revoke\RevokeRequest;
@@ -1260,7 +1260,7 @@ $response = $client->tokens()->revoke(
         <h5>Testdata Person Create</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1api~1v2~1testdata~1person/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1testdata~1person/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Person\Create\CreateRequest;
@@ -1276,7 +1276,7 @@ $response = $client->testdata()->person()->create(
         <h5>Testdata Person Remove</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1api~1v2~1testdata~1person~1remove/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1testdata~1person~1remove/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Person\Remove\RemoveRequest;
@@ -1298,7 +1298,7 @@ $response = $client->testdata()->person()->remove(
         <h5>Testdata Limits Context Session Limits</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1limits~1context~1session/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Limits\LimitsRequest;
@@ -1314,7 +1314,7 @@ $response = $client->testdata()->limits()->context()->session()->limits(
         <h5>Testdata Limits Context Session Reset</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1context~1session/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1limits~1context~1session/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Limits\Context\Session\Reset\ResetRequest;
@@ -1334,7 +1334,7 @@ $response = $client->testdata()->limits()->context()->session()->reset(
         <h5>Testdata Limits Subject Certificate Limits</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1limits~1subject~1certificate/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Limits\LimitsRequest;
@@ -1350,7 +1350,7 @@ $response = $client->testdata()->limits()->subject()->certificate()->limits(
         <h5>Testdata Limits Subject Certificate Reset</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1limits~1subject~1certificate/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1limits~1subject~1certificate/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\Limits\Subject\Certificate\Reset\ResetRequest;
@@ -1368,7 +1368,7 @@ $response = $client->testdata()->limits()->subject()->certificate()->reset(
         <h5>Testdata Rate Limits Limits</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1rate-limits/post
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1rate-limits/post
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\RateLimits\Limits\LimitsRequest;
@@ -1384,7 +1384,7 @@ $response = $client->testdata()->rateLimits()->limits(
         <h5>Testdata Rate Limits Reset</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1rate-limits/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1rate-limits/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\RateLimits\Reset\ResetRequest;
@@ -1400,7 +1400,7 @@ $response = $client->testdata()->rateLimits()->reset(
         <h5>Testdata Rate Limits Production</h5>
     </summary>
 
-https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1api~1v2~1testdata~1rate-limits/delete
+https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Limity-i-ograniczenia/paths/~1testdata~1rate-limits/delete
 
 ```php
 use N1ebieski\KSEFClient\Requests\Testdata\RateLimits\Production\ProductionRequest;
@@ -1799,7 +1799,7 @@ use N1ebieski\KSEFClient\ValueObjects\NIP;
 
 $nip = 'NIP_NUMBER';
 
-// From https://ksef-test.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1api~1v2~1certificates~1query/post
+// From https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Certyfikaty/paths/~1certificates~1query/post
 $certificateSerialNumber = CertificateSerialNumber::from($_ENV['CERTIFICATE_SERIAL_NUMBER']);
 // Remember: this certificate must be "Offline" type, not "Authentication"
 $certificate = CertificateFactory::makeFromCertificatePath(
