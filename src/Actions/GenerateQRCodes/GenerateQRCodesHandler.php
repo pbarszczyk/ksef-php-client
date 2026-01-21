@@ -15,6 +15,7 @@ use N1ebieski\KSEFClient\ValueObjects\Certificate;
 use N1ebieski\KSEFClient\ValueObjects\CertificateSerialNumber;
 use N1ebieski\KSEFClient\ValueObjects\PrivateKeyType;
 use N1ebieski\KSEFClient\ValueObjects\QRCode;
+use N1ebieski\KSEFClient\ValueObjects\Requests\KsefNumber;
 use OpenSSLAsymmetricKey;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
@@ -55,7 +56,8 @@ final class GenerateQRCodesHandler extends AbstractHandler
         $code2 = null;
 
         if (
-            $action->certificate instanceof Certificate
+            ! ($action->ksefNumber instanceof KsefNumber)
+            && $action->certificate instanceof Certificate
             && $action->certificateSerialNumber instanceof CertificateSerialNumber
             && $action->contextIdentifierGroup instanceof ContextIdentifierGroup
         ) {
