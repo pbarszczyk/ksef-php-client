@@ -97,11 +97,13 @@ expect()->extend('toBeExceptionFixture', function (array $data): void {
 
 /**
  * @param array<string, mixed> $data
+ * @param object|array<int, object>|null $fixtureData
  */
 function toBeFixture(array $data, object|array|null $fixtureData = null): void
 {
     foreach ($data as $key => $value) {
         if (is_array($fixtureData)) {
+            /** @var array<string, mixed> $value */
             toBeFixture($value, $fixtureData[$key]);
 
             continue;
