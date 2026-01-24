@@ -1425,11 +1425,7 @@ $response = $client->testdata()->rateLimits()->production(
 https://github.com/CIRFMF/ksef-latarnia/blob/main/scenariusze.md
 
 ```php
-use N1ebieski\KSEFClient\Requests\Latarnik\Status\StatusRequest;
-
-$response = $client->latarnik()->status(
-    new StatusRequest(...)
-)->object();
+$response = $client->latarnik()->status()->object();
 ```
 </details>
 
@@ -1441,11 +1437,7 @@ $response = $client->latarnik()->status(
 https://github.com/CIRFMF/ksef-latarnia/blob/main/scenariusze.md
 
 ```php
-use N1ebieski\KSEFClient\Requests\Latarnik\Messages\MessagesRequest;
-
-$response = $client->latarnik()->messages(
-    new MessagesRequest(...)
-)->object();
+$response = $client->latarnik()->messages()->object();
 ```
 </details>
 
