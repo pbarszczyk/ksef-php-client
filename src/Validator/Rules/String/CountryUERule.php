@@ -22,7 +22,7 @@ final class CountryUERule extends AbstractRule
     {
         if ( ! in_array($value, self::CODES)) {
             throw new InvalidArgumentException(
-                $this->getMessage('Invalid currency format.', $attribute)
+                $this->getMessage('Invalid country code.', $attribute)
             );
         }
     }
