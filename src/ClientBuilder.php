@@ -18,6 +18,7 @@ use N1ebieski\KSEFClient\DTOs\Config;
 use N1ebieski\KSEFClient\DTOs\Requests\Auth\ContextIdentifierGroup;
 use N1ebieski\KSEFClient\DTOs\Requests\Auth\XadesSignature;
 use N1ebieski\KSEFClient\Exceptions\ExceptionHandler;
+use N1ebieski\KSEFClient\Exceptions\StatusException;
 use N1ebieski\KSEFClient\Factories\CertificateFactory;
 use N1ebieski\KSEFClient\Factories\ClientFactory;
 use N1ebieski\KSEFClient\Factories\EncryptedKeyFactory;
@@ -345,7 +346,7 @@ final class ClientBuilder
             ));
 
             Utility::retry(function () use ($client, $authorisationAccessResponse) {
-                /** @var object{status: object{code: int, description: string}} $authorisationStatusResponse */
+                /** @var object{status: object{code: int, description: string, details?: array<int, string>}} $authorisationStatusResponse */
                 $authorisationStatusResponse = $client->auth()->status(
                     new StatusRequest(ReferenceNumber::from($authorisationAccessResponse->referenceNumber))
                 )->object();
@@ -355,9 +356,14 @@ final class ClientBuilder
                 }
 
                 if ($authorisationStatusResponse->status->code >= 400) {
-                    throw $this->exceptionHandler->handle(new RuntimeException(
-                        $authorisationStatusResponse->status->description,
-                        $authorisationStatusResponse->status->code
+                    throw $this->exceptionHandler->handle(new StatusException(
+                        message: $authorisationStatusResponse->status->description,
+                        code: $authorisationStatusResponse->status->code,
+                        context: [
+                            'code' => $authorisationStatusResponse->status->code,
+                            'description' => $authorisationStatusResponse->status->description,
+                            'details' => $authorisationStatusResponse->status->details ?? null
+                        ]
                     ));
                 }
             });
