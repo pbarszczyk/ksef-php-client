@@ -8,6 +8,7 @@ use N1ebieski\KSEFClient\Actions\ConvertPemToDer\ConvertPemToDerAction;
 use N1ebieski\KSEFClient\Actions\ConvertPemToDer\ConvertPemToDerHandler;
 use N1ebieski\KSEFClient\ClientBuilder;
 use N1ebieski\KSEFClient\DTOs\DN;
+use N1ebieski\KSEFClient\Exceptions\StatusException;
 use N1ebieski\KSEFClient\Factories\CertificateFactory;
 use N1ebieski\KSEFClient\Factories\CSRFactory;
 use N1ebieski\KSEFClient\Support\Utility;
@@ -189,4 +190,18 @@ test('auto authorization via KSEF Token', function (): void {
 
     $this->revokeKsefToken($response->referenceNumber);
     $this->revokeCurrentSession($client);
+});
+
+test('test status exception', function (): void {
+    /**
+     * @var AbstractTestCase $this
+     * @var array<string, string> $_ENV
+     */
+    $invalidNip = (string)((int) $_ENV['NIP_1'] + 1);
+
+    expect(fn () => $this->createClient($invalidNip))->toThrow(function (StatusException $exception) {
+        expect($exception->context)->toBeArray();
+        expect($exception->context)->not->toBeEmpty();
+        expect($exception->context)->toHaveKeys(['code', 'description', 'details']);
+    });
 });
