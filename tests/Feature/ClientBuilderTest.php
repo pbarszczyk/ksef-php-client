@@ -199,7 +199,7 @@ test('test status exception', function (): void {
      */
     $invalidNip = (string)((int) $_ENV['NIP_1'] + 1);
 
-    expect(fn () => $this->createClient($invalidNip))->toThrow(function (StatusException $exception) {
+    expect(fn () => $this->createClient($invalidNip))->toThrow(function (StatusException $exception): void {
         expect($exception->context)->toBeArray();
         expect($exception->context)->not->toBeEmpty();
         expect($exception->context)->toHaveKeys(['code', 'description', 'details']);
