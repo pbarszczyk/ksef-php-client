@@ -77,7 +77,12 @@ jobs:
           SIGNATURE_NIP_3: ${{ vars.SIGNATURE_NIP_3 }}
           SIGNATURE_NIP_4: ${{ vars.SIGNATURE_NIP_4 }}
 
-      - name: Install Composer dependencies
+      - name: Install Composer dependencies (PHP 8.1)
+        if: matrix.php == '8.1'
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Update Composer dependencies (PHP >= 8.2)
+        if: matrix.php != '8.1'
         run: composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run CS Fixer
