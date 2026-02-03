@@ -359,11 +359,7 @@ final class ClientBuilder
                     throw $this->exceptionHandler->handle(new StatusException(
                         message: $authorisationStatusResponse->status->description,
                         code: $authorisationStatusResponse->status->code,
-                        context: [
-                            'code' => $authorisationStatusResponse->status->code,
-                            'description' => $authorisationStatusResponse->status->description,
-                            'details' => $authorisationStatusResponse->status->details ?? null
-                        ]
+                        context: $authorisationStatusResponse
                     ));
                 }
             });
