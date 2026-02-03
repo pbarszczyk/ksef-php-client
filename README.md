@@ -1260,11 +1260,11 @@ $response = $client->tokens()->revoke(
 
 ### Testdata
 
-#### Testdata Attachment Permission
+#### Testdata Attachment
 
 <details>
     <summary>
-        <h5> Testdata Attachment Approve </h5>
+        <h5>Testdata Attachment Approve</h5>
     </summary>
 
 https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1testdata~1attachment/post
@@ -1282,7 +1282,7 @@ $response = $client->testdata()->attachment()->approve(
 
 <details>
     <summary>
-        <h5> Testdata Attachment Revoke </h5>
+        <h5>Testdata Attachment Revoke</h5>
     </summary>
 
 https://api-test.ksef.mf.gov.pl/docs/v2/index.html#tag/Dane-testowe/paths/~1testdata~1attachment~1revoke/post
