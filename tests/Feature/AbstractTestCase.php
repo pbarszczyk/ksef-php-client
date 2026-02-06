@@ -35,6 +35,7 @@ abstract class AbstractTestCase extends TestCase
         $client = (new ClientBuilder())
             ->withMode(Mode::Test)
             ->withIdentifier($identifier ?? $_ENV['NIP_1'])
+            ->withLogPath(Utility::basePath('var/logs/monolog.log'))
             ->withCertificatePath(
                 Utility::basePath($certificatePath ?? $_ENV['CERTIFICATE_PATH_1']),
                 $certificatePassphrase ?? $_ENV['CERTIFICATE_PASSPHRASE_1']
