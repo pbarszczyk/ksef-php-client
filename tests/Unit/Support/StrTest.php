@@ -29,6 +29,7 @@ test('detects binary data in split zip parts', function (): void {
 
         expect($document)->not->toBeFalse();
 
+        /** @var string $document */
         $partSize = max(1, (int) floor(strlen($document) / 2));
 
         $parts = (new SplitDocumentIntoPartsHandler())->handle(new SplitDocumentIntoPartsAction(
