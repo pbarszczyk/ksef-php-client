@@ -8,6 +8,7 @@ use JsonException;
 use N1ebieski\KSEFClient\Contracts\HttpClient\ResponseInterface;
 use N1ebieski\KSEFClient\Factories\ExceptionFactory;
 use N1ebieski\KSEFClient\Support\Arr;
+use N1ebieski\KSEFClient\Support\Str;
 use N1ebieski\KSEFClient\ValueObjects\Support\KeyType;
 use Psr\Http\Message\ResponseInterface as BaseResponseInterface;
 
@@ -69,7 +70,7 @@ final class Response implements ResponseInterface
         /** @var array<string, mixed> */
         return Arr::normalize([
             'statusCode' => $this->statusCode,
-            'contents' => $this->contents,
-        ], $keyType, $only);
+            'contents' => Str::isBinary($this->contents) ? '[binary data]' : $this->contents,
+        ], keyType: $keyType, only: $only);
     }
 }

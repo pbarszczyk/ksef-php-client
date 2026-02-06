@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace N1ebieski\KSEFClient\Actions\EncryptDocument;
 
 use N1ebieski\KSEFClient\Actions\AbstractHandler;
+use N1ebieski\KSEFClient\Support\Str;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 
@@ -19,7 +20,7 @@ final class EncryptDocumentHandler extends AbstractHandler
     {
         if ($this->logger instanceof LoggerInterface) {
             $this->logger->debug('Encrypting document', [
-                'document' => $action->document
+                'document' => Str::isBinary($action->document) ? '[binary data]' : $action->document
             ]);
         }
 
