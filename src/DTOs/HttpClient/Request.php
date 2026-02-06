@@ -7,8 +7,10 @@ namespace N1ebieski\KSEFClient\DTOs\HttpClient;
 use N1ebieski\KSEFClient\Support\AbstractDTO;
 use N1ebieski\KSEFClient\Support\Arr;
 use N1ebieski\KSEFClient\Support\Optional;
+use N1ebieski\KSEFClient\Support\Str;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Method;
 use N1ebieski\KSEFClient\ValueObjects\HttpClient\Uri;
+use N1ebieski\KSEFClient\ValueObjects\Support\KeyType;
 
 final class Request extends AbstractDTO
 {
@@ -59,5 +61,17 @@ final class Request extends AbstractDTO
         }
 
         return '';
+    }
+
+    public function toArray(
+        KeyType $keyType = KeyType::Camel,
+        array $keyTypeExcept = [],
+        array $only = []
+    ): array {
+        $array = get_object_vars($this);
+
+        $array['body'] = Str::isBinary($this->body) ? '[binary data]' : $this->body;
+
+        return Arr::normalize($array, $keyType, $keyTypeExcept, $only);
     }
 }

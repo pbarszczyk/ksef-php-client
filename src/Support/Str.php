@@ -6,6 +6,11 @@ namespace N1ebieski\KSEFClient\Support;
 
 final class Str
 {
+    public static function isBinary(mixed $value): bool
+    {
+        return mb_check_encoding($value, 'UTF-8') === false;
+    }
+
     public static function base64URLEncode(string $value): string
     {
         return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
