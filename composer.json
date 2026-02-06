@@ -13,6 +13,8 @@
     ],
     "require": {
         "php": "^8.1.0",
+        "ext-mbstring": "*",
+        "ext-zip": "*",
         "php-http/discovery": "^1.20.0",
         "psr/http-client": "^1.0.3",
         "psr/http-client-implementation": "^1.0.1",

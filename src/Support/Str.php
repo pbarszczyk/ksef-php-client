@@ -6,15 +6,8 @@ namespace N1ebieski\KSEFClient\Support;
 
 final class Str
 {
-    /**
-     * @param mixed $value
-     */
-    public static function isBinary($value): bool
+    public static function isBinary(mixed $value): bool
     {
-        if ( ! is_string($value)) {
-            return false;
-        }
-
         return mb_check_encoding($value, 'UTF-8') === false;
     }
 
