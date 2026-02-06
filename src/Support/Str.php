@@ -8,6 +8,10 @@ final class Str
 {
     public static function isBinary(mixed $value): bool
     {
+        if ( ! is_string($value)) {
+            return false;
+        }
+
         return mb_check_encoding($value, 'UTF-8') === false;
     }
 
