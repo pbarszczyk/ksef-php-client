@@ -34,6 +34,10 @@ return \Rector\Config\RectorConfig::configure()
             __DIR__ . '/src/Factories/EncryptedKeyFactory.php'
         ]
     ])
+    ->withCache(
+        __DIR__.'/var/.rector.cache',
+        \Rector\Caching\ValueObject\Storage\FileCacheStorage::class
+    )
     ->withComposerBased(phpunit: true)
     ->withImportNames(removeUnusedImports: true)
     ->withPreparedSets(

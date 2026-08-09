@@ -5,6 +5,7 @@ $finder = (new PhpCsFixer\Finder())
     ->exclude(['var']);
 
 return (new PhpCsFixer\Config())
+    ->setCacheFile(__DIR__.'/var/.php-cs-fixer.cache')
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@PSR12' => true,

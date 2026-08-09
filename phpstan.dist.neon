@@ -1,5 +1,6 @@
 parameters:
 	level: 10
+	tmpDir: var/.phpstan.cache
 	phpVersion: 80100
 	paths:
 		- src/
@@ -34,10 +35,10 @@ parameters:
 			path: tests/Unit/DTOs/Requests/Sessions/*
 		-
 			message: '#Parameter \#1 \$exception of method Pest\\Mixins\\Expectation<\(Closure\)\|null>::toThrow\(\) expects \(Closure\(Throwable\):\s+mixed\)\|string\|Throwable, Closure\([A-Za-z0-9_\\\\]+Exception\): true given#'
-			path: tests/*     
+			path: tests/*
 		-
 			message: '#Parameter \#1 \$exception of method Pest\\Mixins\\Expectation<\(Closure\)\|null>::toThrow\(\) expects \(Closure\(Throwable\):\s+mixed\)\|string\|Throwable, Closure\([A-Za-z0-9_\\]+Exception\): void given#'
-			path: tests/*   
+			path: tests/*
 		-
 			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::(never|once)\(\).$#'
 			path: tests/*
